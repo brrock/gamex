@@ -2,20 +2,215 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-synthesis: none;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.auth {
+  @apply flex-center min-h-screen w-full bg-purple-100 dark:text-white dark:bg-slate-950 text-black
+}
+
+.root {
+  @apply flex min-h-screen w-full flex-col bg-white lg:flex-row;
+}
+
+.root-container {
+  @apply mt-16 flex-1 overflow-auto py-8 lg:mt-0 lg:max-h-screen lg:py-10
+}
+
+/* ========================================== TAILWIND STYLES */
+@layer utilities {
+  /* ===== UTILITIES */
+  .wrapper {
+    @apply max-w-5xl mx-auto px-5 md:px-10 w-full  p-16-regular;
+  }
+
+  .gradient-text {
+    @apply bg-purple-gradient bg-cover bg-clip-text text-transparent;
+  }
+
+  /* ===== ALIGNMENTS */
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+
+  /* ===== TYPOGRAPHY */
+  /* 44 */
+  .h1-semibold {
+    @apply text-[36px] font-semibold sm:text-[44px] leading-[120%] sm:leading-[56px];
+  }
+
+  /* 36 */
+  .h2-bold {
+    @apply text-[30px] font-bold md:text-[36px] leading-[110%];
+  }
+
+  /* 30 */
+  .h3-bold {
+    @apply font-bold text-[30px] leading-[140%];
+  }
+
+  /* 24 */
+  .p-24-bold {
+    @apply font-bold text-[24px] leading-[120%];
+  }
+
+  /* 20 */
+  .p-20-semibold {
+    @apply font-semibold text-[20px] leading-[140%];
+  }
+
+  .p-20-regular {
+    @apply font-normal text-[20px] leading-[140%];
+  }
+
+  /* 18 */
+  .p-18-semibold {
+    @apply font-semibold text-[18px] leading-[140%];
+  }
+
+  /* 16 */
+  .p-16-semibold {
+    @apply font-semibold text-[16px] leading-[140%];
+  }
+
+  .p-16-medium {
+    @apply font-medium text-[16px] leading-[140%];
+  }
+
+  .p-16-regular {
+    @apply font-normal text-[16px] leading-[140%];
+  }
+
+  /* 14 */
+  .p-14-medium {
+    @apply font-medium text-[14px] leading-[120%];
+  }
+
+  /* 10 */
+  .p-10-medium {
+    @apply font-medium text-[10px] leading-[140%];
+  }
+}
+/* =====  CLERK OVERRIDES */
+.cl-userButtonBox {
+  display: flex;
+  flex-flow: row-reverse;
+  gap: 12px;
+}
+
+.cl-userButtonOuterIdentifier {
+  font-size: 16px;
+  font-weight: 600;
+  color: #384262;
+}
+.cl-cardBox {
+  @apply dark:bg-slate-600 bg-background
+}
+
+.cl-card {
+  @apply dark:bg-slate-800 bg-background 
+}
+.cl-header {
+  @apply dark:text-white text-black
+}
+.cl-headerTitle {
+  @apply dark:text-white text-black
+}
+.cl-headerSubtitle  {
+  @apply dark:text-white text-black
+}
+.cl-footerAction {
+  @apply dark:bg-slate-200 bg-purple-700
+}
+.cl-formFieldLabel {
+  @apply dark:text-white text-black
+}
+.cl-socialButtonsBlockButtonText {
+  @apply  dark:text-white text-black
+}
+.cl-button {
+  @apply dark:bg-purple-800 bg-purple-700
+}
+.cl-internal-4x6jej {
+  @apply dark:bg-purple-700 bg-purple-600
+}
+.cl-internal-180wb59 {
+  display: none;
+}
+.cl-otpCodeFieldInput {
+  @apply text-black dark:text-white
 }
