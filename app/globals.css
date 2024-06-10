@@ -35,7 +35,12 @@
 
     --radius: 0.5rem;
   }
-
+  .auth {
+    @apply flex-center min-h-screen w-full 
+  }
+  .flex-center {
+    @apply flex justify-center items-center;
+  }  
   .dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
@@ -223,5 +228,9 @@ button[data-localization-key='userProfile.start.dangerSection.deleteAccountButto
 
 .cl-formButtonReset {
   @apply text-foreground hover:bg-secondary;
+}
+
+.cl-footerActionLink {
+  @apply text-black
 }
 
