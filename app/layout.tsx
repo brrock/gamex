@@ -9,7 +9,7 @@ const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
- 
+
 export const metadata: Metadata = {
   title: "Imaginify",
   description: "AI-powered image generator",
@@ -21,18 +21,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{
-      variables: { colorPrimary: '#624cf5' }
-    }}>
+  <ClerkProvider
+      appearance={{
+          variables: {
+              colorPrimary: 'hsl(263.4, 70%, 50.4%)', // change this value (you can get it from you're css variables, make sure to include 'hsl' and commas)
+                  },
+              }}
+  >
       <html lang="en">
-        <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
-        <ThemeProvider
+        <body className={cn("min-h-screen bg-background dark:text-white text-black font-sans antialiased", fontSans.variable)}>
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-          {children}
+            {children}
           </ThemeProvider>
         </body>
       </html>

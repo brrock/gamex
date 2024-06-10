@@ -1,10 +1,13 @@
-import { UserButton } from '@clerk/nextjs'
+import { ModeToggle } from '@/components/theme-toggle'
 import React from 'react'
 
 const Home = () => {
   return (
-    <div><UserButton /></div>
+    <div>
+      <ModeToggle />
+    </div>
   )
 }
 
 export default Home
+
