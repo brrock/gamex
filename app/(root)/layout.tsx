@@ -1,6 +1,8 @@
+import Head from "next/head"
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
+
     <main className="root">
      
 

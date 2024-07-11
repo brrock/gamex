@@ -11,7 +11,7 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: "Imaginify",
+  title: "GameX",
   description: "AI-powered image generator",
 };
 
