@@ -1,3 +1,4 @@
+import { SignedOutfooter } from '@/components/signed-out/footer'
 import Hero from '@/components/signed-out/hero'
 import SignedOutMobileNav from '@/components/signed-out/mobile-nav'
 import SignedOutNav from '@/components/signed-out/nav'
@@ -10,9 +11,10 @@ const Home = () => {
     <div>
         <SignedIn><UserButton /></SignedIn>
         <SignedOut>
+        <SignedOutMobileNav />
             <SignedOutNav />
-            <SignedOutMobileNav />
             <Hero />
+            <SignedOutfooter />
         </SignedOut>
     </div>
   )
