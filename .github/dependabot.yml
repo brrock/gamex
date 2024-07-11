@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directories:
+      - "/updater"
+      - "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "16:00"
