@@ -1,18 +1,9 @@
 
 version: 2
 updates:
-  - package-ecosystem: npm
-    schedule:
-      interval: daily
-    directory: .next
-    open-pull-requests-limit: 10
-  - package-ecosystem: npm
-    schedule:
-      interval: daily
-    directory: .next/types
-    open-pull-requests-limit: 10
+
   - package-ecosystem: npm
     schedule:
       interval: daily
     directory: /
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 20
