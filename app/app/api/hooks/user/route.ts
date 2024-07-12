@@ -27,16 +27,16 @@ export async function handleUserWebhook(request: Request): Promise<Response> {
     switch (type) {
       case 'user.created':
         await createUser(data);
-        return new Response('User created');
+        return new Response('User created', { status: 200 });
       case 'user.updated':
         await updateUser(data);
-        return new Response('User updated');
+        return new Response('User updated', { status: 200 });
       case 'user.deleted':
         if (data.id === undefined) {
           return new Response('User deleted with undefined id', { status: 400 });
         }
         await deleteUser(data.id);
-        return new Response('User deleted');
+        return new Response('User deleted', { status: 200 });
       default:
         return new Response('Unhandled webhook event', { status: 400 });
     }
@@ -50,12 +50,12 @@ async function createUser(data: WebhookEvent['data']) {
     where: { id: data.id },
     create: {
       id: data.id,
-      username: data.username,
-      imageUrl: data.profile_image_url,
+      username: (data as { username: string }).username,
+      imageUrl: (data as unknown as { profile_image_url: string | undefined }).profile_image_url ?? '',
     },
     update: {
-      username: data.username,
-      imageUrl: data.profile_image_url,
+      username: (data as { username: string }).username,
+      imageUrl: (data as unknown as { profile_image_url: string | undefined }).profile_image_url ?? '',
     },
   });
 }
@@ -64,8 +64,8 @@ async function updateUser(data: WebhookEvent['data']) {
   await prisma.user.update({
     where: { id: data.id },
     data: {
-      username: data.username,
-      imageUrl: data.profile_image_url,
+      username: (data as { username: string }).username,
+      imageUrl: (data as unknown as { profile_image_url: string | undefined }).profile_image_url ?? '',
     },
   });
 }
@@ -77,3 +77,4 @@ async function deleteUser(userId: string) {
     },
   });
 }
+
