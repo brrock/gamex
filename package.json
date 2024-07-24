@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@clerk/clerk-sdk-node": "^5.0.14",
+    "@clerk/clerk-sdk-node": "^5.0.18",
     "@clerk/nextjs": "^5.2.4",
     "@prisma/client": "^5.17.0",
     "@radix-ui/react-dialog": "^1.0.5",
