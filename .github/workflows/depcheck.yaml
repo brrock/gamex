@@ -1,4 +1,9 @@
-...
+name: depcheck
+run-name: Depcheck Gh action
+on: [push]
+jobs:
+  depcheck:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: depcheck
