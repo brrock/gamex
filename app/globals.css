@@ -230,7 +230,3 @@ button[data-localization-key='userProfile.start.dangerSection.deleteAccountButto
   @apply text-foreground hover:bg-secondary;
 }
 
-.cl-footerActionLink {
-  @apply text-black
-}
-

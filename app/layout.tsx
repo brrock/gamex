@@ -24,7 +24,7 @@ export default function RootLayout({
   <ClerkProvider
       appearance={{
           variables: {
-              colorPrimary: 'hsl(263.4, 70%, 50.4%)', // change this value (you can get it from you're css variables, make sure to include 'hsl' and commas)
+              colorPrimary: 'hsl(242, 96%, 57%)', // change this value (you can get it from you're css variables, make sure to include 'hsl' and commas)
                   },
               }}
   >
