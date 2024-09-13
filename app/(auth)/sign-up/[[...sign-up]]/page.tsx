@@ -1,9 +1,20 @@
 import { ModeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
 import { SignUp } from "@clerk/nextjs";
+import { House } from "lucide-react";
+import Link from "next/link";
 
 export default function Page() {
   return (
- <><header className="top-0 relative">
-      <ModeToggle /></header><SignUp /></>
+ <>
+   <Button asChild variant="outline" className='right-18 fixed top-3'>
+        <Link href="/"><House /></Link>
+      </Button>
+      <Button asChild className='top-3 fixed right-5'>
+        <Link href="/sign-in">Sign Up</Link>
+      </Button>
+ <div className="top-3 fixed left-5">
+      <ModeToggle /></div><SignUp />
+      </>
 );
 }
