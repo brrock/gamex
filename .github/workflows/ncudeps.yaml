@@ -27,7 +27,7 @@ jobs:
       - name: Run npm-check-updates
         id: run-ncu
         run: |
-          ncu -u > ncu.log || true
+          ncu -u -x eslint > ncu.log || true
           cat ncu.log
           # Capture updated packages for commit message
           UPDATED_PACKAGES=$(grep -E '^\S+' ncu.log | sed 's/^[ \t]*//;s/[ \t]*$//' | head -n 10 | tr '\n' ', ')
