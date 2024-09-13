@@ -29,6 +29,9 @@ jobs:
         run: |
           ncu -u > ncu.log || true
           cat ncu.log
+          # Capture updated packages
+          UPDATED_PACKAGES=$(grep -E '^.+\s+\d+\.\d+\.\d+ \d+\.\d+\.\d+' ncu.log)
+          echo "UPDATED_PACKAGES=$UPDATED_PACKAGES" >> $GITHUB_ENV
 
       - name: Install updated dependencies
         id: install-dependencies
@@ -37,6 +40,7 @@ jobs:
         continue-on-error: true
 
       - name: Check for changes
+        id: check-changes
         if: success()
         run: |
           git config --global user.name "github-actions[bot]"
@@ -48,8 +52,10 @@ jobs:
             echo "No changes to commit."
             exit 0
           else
-            echo "Changes detected but npm install failed. Skipping commit."
-            exit 0
+            echo "Changes detected. Committing updates."
+            COMMIT_MESSAGE="Chore: Update dependencies: ${{ env.UPDATED_PACKAGES }}"
+            git commit -m "$COMMIT_MESSAGE"
+            git push
           fi
 
       - name: Create GitHub Issue if npm install fails
@@ -79,7 +85,7 @@ jobs:
             \`\`\`
             `;
 
-            const octokit = new (require('@octokit/rest'))({ auth: GITHUB_TOKEN });
+            const octokit = new (require('@octokit/rest'))({ auth: process.env.GITHUB_TOKEN });
 
             await octokit.issues.create({
               owner,
@@ -87,3 +93,5 @@ jobs:
               title: issueTitle,
               body: issueBody
             });
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
