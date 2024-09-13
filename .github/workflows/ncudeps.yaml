@@ -29,8 +29,8 @@ jobs:
         run: |
           ncu -u > ncu.log || true
           cat ncu.log
-          # Capture updated packages
-          UPDATED_PACKAGES=$(grep -E '^.+\s+\d+\.\d+\.\d+ \d+\.\d+\.\d+' ncu.log)
+          # Capture updated packages for commit message
+          UPDATED_PACKAGES=$(grep -E '^\S+' ncu.log | sed 's/^[ \t]*//;s/[ \t]*$//' | head -n 10 | tr '\n' ', ')
           echo "UPDATED_PACKAGES=$UPDATED_PACKAGES" >> $GITHUB_ENV
 
       - name: Install updated dependencies
@@ -59,7 +59,7 @@ jobs:
           fi
 
       - name: Create GitHub Issue if npm install fails
-        if: env.npm_install_failed == 'true'
+        if: contains(steps.install-dependencies.outputs.npm_install_failed, 'true')
         uses: actions/github-script@v6
         with:
           script: |
