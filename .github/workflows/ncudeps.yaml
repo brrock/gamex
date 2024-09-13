@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js (LTS)
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 'lts'
 
       - name: Install npm-check-updates
         run: npm install -g npm-check-updates
@@ -36,7 +36,7 @@ jobs:
           npm install > npm-install.log 2>&1 || echo "npm install failed" >> $GITHUB_ENV
         continue-on-error: true
 
-      - name: Commit and push changes
+      - name: Check for changes
         if: success()
         run: |
           git config --global user.name "github-actions[bot]"
@@ -48,11 +48,9 @@ jobs:
             echo "No changes to commit."
             exit 0
           else
-            git commit -m "Update dependencies"
-            git push
+            echo "Changes detected but npm install failed. Skipping commit."
+            exit 0
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Issue if npm install fails
         if: env.npm_install_failed == 'true'
