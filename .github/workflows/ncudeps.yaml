@@ -16,10 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js (20)
+      - name: Set up Node.js (LTS)
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 'lts'
 
       - name: Install npm-check-updates
         run: npm install -g npm-check-updates
@@ -60,7 +60,7 @@ jobs:
           fi
 
       - name: Set up GitHub CLI
-        uses: actions4gh/setup-gh@v1
+        uses: actions/setup-gh@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
