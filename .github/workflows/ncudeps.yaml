@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js (LTS)
         uses: actions/setup-node@v3
         with:
-          node-version: 'lts'
+          node-version: '20'
 
       - name: Install npm-check-updates
         run: npm install -g npm-check-updates
@@ -58,11 +58,6 @@ jobs:
             git commit -m "$COMMIT_MESSAGE"
             git push
           fi
-
-      - name: Set up GitHub CLI
-        uses: actions/setup-gh@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Issue if npm install fails
         if: env.npm_install_failed == 'true'
