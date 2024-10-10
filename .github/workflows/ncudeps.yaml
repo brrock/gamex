@@ -29,19 +29,31 @@ jobs:
           ncu -u -x eslint > ncu.log
           cat ncu.log
           
-          # Extract updated packages and their versions
-          UPDATED_PACKAGES=$(grep -E '^\s*[^ ]+\s+\S+\s+→\s+\S+' ncu.log | sed 's/^ *//' | tr '\n' ', ' | sed 's/, $//')
+          # Extract updated packages and their new versions
+          UPDATED_PACKAGES=$(grep -E '^\s*[^ ]+\s+\S+\s+→\s+\S+' ncu.log | sed 's/^ *//' | awk '{gsub("@", "", $1); print $1 " " $4}' | tr '\n' ', ' | sed 's/, $//')
           
           echo "UPDATED_PACKAGES=$UPDATED_PACKAGES" >> $GITHUB_ENV
 
       - name: Install updated dependencies
         id: install-dependencies
         run: |
-          npm install > npm-install.log 2>&1 || echo "INSTALL_FAILED=true" >> $GITHUB_ENV
+          npm install > npm-install.log 2>&1
+          INSTALL_EXIT_CODE=$?
+          
+          # Check for peer dependency conflicts
+          if grep -q "Could not resolve dependency" npm-install.log; then
+            echo "PEER_CONFLICT=true" >> $GITHUB_ENV
+            grep -A 5 "peer dep missing" npm-install.log > peer-conflicts.log
+          fi
+          
+          # Check for general install failure
+          if [ $INSTALL_EXIT_CODE -ne 0 ]; then
+            echo "INSTALL_FAILED=true" >> $GITHUB_ENV
+          fi
         continue-on-error: true
 
       - name: Check for changes and Commit
-        if: success() && env.INSTALL_FAILED != 'true'
+        if: env.INSTALL_FAILED != 'true' && env.PEER_CONFLICT != 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -52,19 +64,25 @@ jobs:
             echo "No changes to commit."
             exit 0
           else
-            COMMIT_MESSAGE="deps: update dependencies"
+            COMMIT_MESSAGE="deps: ${{ env.UPDATED_PACKAGES }}"
             echo "Committing with message: $COMMIT_MESSAGE"
-            git commit -m "$COMMIT_MESSAGE" -m "${{ env.UPDATED_PACKAGES }}"
+            git commit -m "$COMMIT_MESSAGE"
             git push
           fi
 
-      - name: Create GitHub Issue if npm install fails
-        if: env.INSTALL_FAILED == 'true'
+      - name: Create GitHub Issue for npm install issues
+        if: env.INSTALL_FAILED == 'true' || env.PEER_CONFLICT == 'true'
         run: |
-          ISSUE_BODY=$(cat <<-END
-          ## Dependency Update Failed
+          if [ "${{ env.INSTALL_FAILED }}" == "true" ]; then
+            TITLE="Dependency Update Failed: npm install error"
+            BODY_HEADER="## Dependency Update Failed\n\nThe automated dependency update process encountered an error during the npm install step."
+          else
+            TITLE="Dependency Update: Peer Dependency Conflicts Detected"
+            BODY_HEADER="## Peer Dependency Conflicts Detected\n\nThe automated dependency update process detected peer dependency conflicts."
+          fi
 
-          The automated dependency update process encountered an error during the npm install step.
+          ISSUE_BODY=$(cat <<-END
+          $BODY_HEADER
 
           ### npm-check-updates logs:
           \`\`\`
@@ -76,9 +94,22 @@ jobs:
           $(cat npm-install.log)
           \`\`\`
 
-          Please review the logs and take appropriate action to resolve the issue.
           END
           )
-          gh issue create --repo ${{ github.repository }} --title "Dependency Update Failed: npm install error" --body "$ISSUE_BODY"
+
+          if [ -f peer-conflicts.log ]; then
+            ISSUE_BODY+=$(cat <<-END
+
+            ### Specific peer conflicts:
+            \`\`\`
+            $(cat peer-conflicts.log)
+            \`\`\`
+            END
+            )
+          fi
+
+          ISSUE_BODY+="Please review the logs and take appropriate action to resolve the issue."
+
+          gh issue create --repo ${{ github.repository }} --title "$TITLE" --body "$ISSUE_BODY"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
