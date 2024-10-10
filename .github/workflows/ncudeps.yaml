@@ -11,7 +11,6 @@ on:
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -27,7 +26,7 @@ jobs:
       - name: Run npm-check-updates and Extract Updated Packages
         id: run-ncu
         run: |
-          ncu -u -x eslint> ncu.log || true
+          ncu -u -x eslint > ncu.log
           cat ncu.log
           
           # Extract updated packages and their versions
@@ -38,11 +37,11 @@ jobs:
       - name: Install updated dependencies
         id: install-dependencies
         run: |
-          npm install > npm-install.log 2>&1 || echo "npm install failed" >> $GITHUB_ENV
+          npm install > npm-install.log 2>&1 || echo "INSTALL_FAILED=true" >> $GITHUB_ENV
         continue-on-error: true
 
       - name: Check for changes and Commit
-        if: success()
+        if: success() && env.INSTALL_FAILED != 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -53,30 +52,33 @@ jobs:
             echo "No changes to commit."
             exit 0
           else
-            COMMIT_MESSAGE="Chore: Bump deps - ${{ env.UPDATED_PACKAGES }}"
+            COMMIT_MESSAGE="chore(deps): update dependencies"
             echo "Committing with message: $COMMIT_MESSAGE"
-            git commit -m "$COMMIT_MESSAGE"
+            git commit -m "$COMMIT_MESSAGE" -m "Updated packages: ${{ env.UPDATED_PACKAGES }}"
             git push
           fi
 
       - name: Create GitHub Issue if npm install fails
-        if: env.npm_install_failed == 'true'
+        if: env.INSTALL_FAILED == 'true'
         run: |
           ISSUE_BODY=$(cat <<-END
-          **Update failed during GitHub Action run**
+          ## Dependency Update Failed
 
-          **npm-check-updates logs:**
+          The automated dependency update process encountered an error during the npm install step.
+
+          ### npm-check-updates logs:
           \`\`\`
           $(cat ncu.log)
           \`\`\`
 
-          **npm install logs:**
+          ### npm install logs:
           \`\`\`
           $(cat npm-install.log)
           \`\`\`
+
+          Please review the logs and take appropriate action to resolve the issue.
           END
           )
-
           gh issue create --repo ${{ github.repository }} --title "Dependency Update Failed: npm install error" --body "$ISSUE_BODY"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
