@@ -30,7 +30,7 @@ jobs:
           cat ncu.log
           
           # Extract updated packages and their versions
-          UPDATED_PACKAGES=$(grep -E '^.+\s+\d+\.\d+\.\d+.+\d+\.\d+\.\d+' ncu.log | awk '{print $1 " " $2 " → " $4}' | tr '\n' ', ' | sed 's/, $//')
+          UPDATED_PACKAGES=$(grep -E '^\s*[^ ]+\s+\S+\s+→\s+\S+' ncu.log | sed 's/^ *//' | tr '\n' ', ' | sed 's/, $//')
           
           echo "UPDATED_PACKAGES=$UPDATED_PACKAGES" >> $GITHUB_ENV
 
@@ -52,9 +52,9 @@ jobs:
             echo "No changes to commit."
             exit 0
           else
-            COMMIT_MESSAGE="chore(deps): update dependencies"
+            COMMIT_MESSAGE="deps: update dependencies"
             echo "Committing with message: $COMMIT_MESSAGE"
-            git commit -m "$COMMIT_MESSAGE" -m "Updated packages: ${{ env.UPDATED_PACKAGES }}"
+            git commit -m "$COMMIT_MESSAGE" -m "${{ env.UPDATED_PACKAGES }}"
             git push
           fi
 
