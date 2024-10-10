@@ -11,7 +11,7 @@ export default function Page() {
         <Link href="/"><House /></Link>
       </Button>
       <Button asChild className='top-3 fixed right-5'>
-        <Link href="/sign-in">Sign Up</Link>
+        <Link href="/sign-in">Sign In</Link>
       </Button>
  <div className="top-3 fixed left-5">
       <ModeToggle /></div><SignUp />
