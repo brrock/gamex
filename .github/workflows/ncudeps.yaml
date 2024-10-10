@@ -26,7 +26,7 @@ jobs:
       - name: Run npm-check-updates and Extract Updated Packages
         id: run-ncu
         run: |
-          ncu -u -x eslint > ncu.log
+          ncu -u  > ncu.log
           cat ncu.log
           
           # Extract updated packages and their new versions
