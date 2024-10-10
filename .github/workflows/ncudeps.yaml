@@ -73,7 +73,7 @@ jobs:
       - name: Create GitHub Issue for npm install issues
         if: env.INSTALL_FAILED == 'true' || env.PEER_CONFLICT == 'true'
         run: |
-          if [ "${{ env.INSTALL_FAILED }}" == "true" ]; then
+          if [ "${{ env.INSTALL_FAILED }}" = "true" ]; then
             TITLE="Dependency Update Failed: npm install error"
             BODY_HEADER="## Dependency Update Failed\n\nThe automated dependency update process encountered an error during the npm install step."
           else
@@ -81,8 +81,7 @@ jobs:
             BODY_HEADER="## Peer Dependency Conflicts Detected\n\nThe automated dependency update process detected peer dependency conflicts."
           fi
 
-          ISSUE_BODY=$(cat <<-END
-          $BODY_HEADER
+          ISSUE_BODY="${BODY_HEADER}
 
           ### npm-check-updates logs:
           \`\`\`
@@ -93,22 +92,20 @@ jobs:
           \`\`\`
           $(cat npm-install.log)
           \`\`\`
-
-          END
-          )
+          "
 
           if [ -f peer-conflicts.log ]; then
-            ISSUE_BODY+=$(cat <<-END
+            ISSUE_BODY="${ISSUE_BODY}
 
             ### Specific peer conflicts:
             \`\`\`
             $(cat peer-conflicts.log)
             \`\`\`
-            END
-            )
+            "
           fi
 
-          ISSUE_BODY+="Please review the logs and take appropriate action to resolve the issue."
+          ISSUE_BODY="${ISSUE_BODY}
+          Please review the logs and take appropriate action to resolve the issue."
 
           gh issue create --repo ${{ github.repository }} --title "$TITLE" --body "$ISSUE_BODY"
         env:
