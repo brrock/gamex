@@ -116,11 +116,13 @@ export async function getUserStats() {
 }
 
 
-export async function checkAdminStatus(clerkId: string): Promise<boolean> {
-  const user = await prisma.user.findUnique({
-    where: { clerkId },
-    select: { role: true },
-  });
-
-  return user?.role === 'ADMIN';
+export async function checkAdminStatus(): Promise<boolean> {
+  const userid = await fetch("/api/user")
+    .then((res) => res.json())
+    .then((data) => data.userid);
+  console.log(userid)
+  const userdata = await fetch(`/api/userdata/${userid}`)
+  .then((res) => res.json())
+  .then((data) => data.role);
+  return userdata === 'ADMIN';
 }
