@@ -119,7 +119,7 @@ export async function getUserStats() {
 export async function checkAdminStatus(): Promise<boolean> {
   const userid = await fetch("/api/user")
     .then((res) => res.json())
-    .then((data) => data.userid);
+    .then((data) => data.userId);
   console.log(userid)
   const userdata = await fetch(`/api/userdata/${userid}`)
   .then((res) => res.json())
