@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
-import { deleteUser, delUserClerk, getUsersWithRoles, updateUserRole, getUserStats, checkAdminStatus } from '@/lib/user.actions';
+import {  deleteUser, getUsersWithRoles, updateUserRole, getUserStats, checkAdminStatus } from '@/lib/user.actions';
 import { Role } from '@prisma/client';
 import { Spinner } from './ui/spinner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -114,7 +114,7 @@ const AdminPanel: React.FC = () => {
 
   const handleClerkDelete = async (clerkId: string) => {
     try {
-      await delUserClerk(clerkId);
+      await deleteUser(clerkId);
       await fetchUsers();
       toast({
         title: 'Success',

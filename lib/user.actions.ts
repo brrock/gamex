@@ -1,96 +1,132 @@
 import prisma from "@/db/prisma";
 import { clerkClient } from "@clerk/clerk-sdk-node";
-import { Role } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 
-// Create a new user in the database
-export async function createUser(user: {
+// Custom error class for user operations
+export class UserOperationError extends Error {
+  constructor(
+    message: string,
+    public operation: string,
+    public cause?: unknown
+  ) {
+    super(message);
+    this.name = 'UserOperationError';
+  }
+}
+
+// Types
+export interface CreateUserInput {
   clerkId: string;
   email: string;
   username: string | null;
   image_url: string;
-}) {
+}
+
+export interface UserStats {
+  totalUsers: number;
+  usersByRole: Record<Role, number>;
+}
+
+// Input validation
+function validateClerkId(clerkId: string): void {
+  if (!clerkId?.trim()) {
+    throw new UserOperationError('ClerkId is required', 'validation');
+  }
+}
+
+// User operations
+export async function createUser(input: CreateUserInput): Promise<User> {
   try {
     const newUser = await prisma.user.create({
       data: {
-        clerkId: user.clerkId,
-        email: user.email,
-        username: user.username,
-        image_url: user.image_url,
+        clerkId: input.clerkId,
+        email: input.email,
+        username: input.username,
+        image_url: input.image_url,
+        role: 'USER', // Default role
       },
     });
     return newUser;
   } catch (error) {
-    console.error("Error creating user:", error);
-    return null;
+    throw new UserOperationError(
+      'Failed to create user',
+      'create',
+      error
+    );
   }
 }
 
-// Fetch users with their roles
-export async function getUsersWithRoles() {
+export async function getUsersWithRoles(): Promise<User[]> {
   try {
     const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        clerkId: true,
-        email: true,
-        username: true,
-        role: true,
-        credits: true,
-        image_url: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+      orderBy: {
+        createdAt: 'desc'
+      }
     });
     return users;
   } catch (error) {
-    console.error("Error fetching users with roles:", error);
-    return [];
+    throw new UserOperationError(
+      'Failed to fetch users',
+      'fetch',
+      error
+    );
   }
 }
 
-// Update user role
-export async function updateUserRole(clerkId: string, newRole: Role) {
+export async function updateUserRole(clerkId: string, newRole: Role): Promise<User> {
   try {
+    validateClerkId(clerkId);
+    
     const updatedUser = await prisma.user.update({
       where: { clerkId },
       data: { role: newRole },
     });
     return updatedUser;
   } catch (error) {
-    console.error("Error updating user role:", error);
-    return null;
+    throw new UserOperationError(
+      'Failed to update user role',
+      'update',
+      error
+    );
   }
 }
 
-// Delete a user from the database
-export async function deleteUser(clerkId: string) {
+export async function deleteUser(clerkId: string): Promise<{ database: User; clerk: boolean }> {
   try {
-    const deletedUser = await prisma.user.delete({
+    validateClerkId(clerkId);
+
+    // Delete from database first
+    const deletedFromDb = await prisma.user.delete({
       where: { clerkId },
     });
-    return deletedUser;
+
+    // Then delete from Clerk
+    let clerkDeletionSuccessful = false;
+    try {
+      await clerkClient.users.deleteUser(clerkId);
+      clerkDeletionSuccessful = true;
+    } catch (clerkError) {
+      console.error('Failed to delete user from Clerk:', clerkError);
+      // Don't throw here - we still want to return the database deletion result
+    }
+
+    return {
+      database: deletedFromDb,
+      clerk: clerkDeletionSuccessful,
+    };
   } catch (error) {
-    console.error("Error deleting user from database:", error);
-    return null;
+    throw new UserOperationError(
+      'Failed to delete user',
+      'delete',
+      error
+    );
   }
 }
 
-// Delete a user from Clerk
-export async function delUserClerk(clerkId: string) {
-  try {
-    await clerkClient.users.deleteUser(clerkId);
-    return { message: `User with Clerk ID ${clerkId} deleted from Clerk.` };
-  } catch (error) {
-    console.error("Error deleting user from Clerk:", error);
-    return null;
-  }
-}
-
-// Get user statistics (counts by role)
-export async function getUserStats() {
+export async function getUserStats(): Promise<UserStats> {
   try {
     const userCountsByRole = await prisma.user.groupBy({
-      by: ["role"],
+      by: ['role'],
       _count: {
         role: true,
       },
@@ -106,15 +142,23 @@ export async function getUserStats() {
       roleCounts[roleData.role] = roleData._count.role;
     });
 
-    const totalUsers = Object.values(roleCounts).reduce((sum, count) => sum + count, 0);
+    const totalUsers = Object.values(roleCounts).reduce(
+      (sum, count) => sum + count,
+      0
+    );
 
-    return { totalUsers, usersByRole: roleCounts };
+    return {
+      totalUsers,
+      usersByRole: roleCounts,
+    };
   } catch (error) {
-    console.error("Error fetching user statistics:", error);
-    return null;
+    throw new UserOperationError(
+      'Failed to fetch user statistics',
+      'stats',
+      error
+    );
   }
 }
-
 
 export async function checkAdminStatus(): Promise<boolean> {
   const userid = await fetch("/api/user")
