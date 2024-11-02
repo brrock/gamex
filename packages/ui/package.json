@@ -25,7 +25,6 @@
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
-    "@types/next": "^9.0.0",
     "@types/node": "^22.8.6",
     "@types/react": "npm:types-react@19.0.0-alpha.3",
     "@types/react-dom": "npm:types-react-dom@19.0.0-alpha.3",
