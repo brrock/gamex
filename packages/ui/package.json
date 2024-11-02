@@ -1,0 +1,52 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "NODE_ENV=development concurrently \"node generate-exports.js\" \"tsup --watch\"",
+    "build": "NODE_ENV=production node generate-exports.js && tsup",
+    "lint": "eslint .",
+    "prettier": "prettier --w .",
+    "ui": "pnpm dlx shadcn@latest"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-dropdown-menu": "^2.1.2",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.453.0",
+    "next": "15.0.1",
+    "next-themes": "^0.3.0",
+    "tailwind-merge": "^2.5.4"
+  },
+  "devDependencies": {
+    "@types/next": "^9.0.0",
+    "@types/node": "^22.8.6",
+    "@types/react": "npm:types-react@19.0.0-alpha.3",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-alpha.3",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
+    "eslint": "^9",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-tailwind": "^0.2.1",
+    "postcss": "^8",
+    "prettier": "^3.3.3",
+    "tsup": "^6.7.0",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "react": "rc"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-alpha.3",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-alpha.3"
+  },
+  "license": "MIT"
+}

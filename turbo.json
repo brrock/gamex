@@ -1,0 +1,28 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "ui:build": {
+      "cache": false,
+      "persistent": true,
+      "outputs": ["dist/**"]
+    },
+   "prettier": {
+      "cache": false,
+      "persistent": true
+    }
+  },
+  "globalDependencies": [".env"], 
+  "ui": "tui"
+}

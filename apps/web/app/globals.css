@@ -1,0 +1,307 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+  .auth {
+    @apply flex-center min-h-screen w-full;
+  }
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+}
+.cl-formButtonPrimary {
+  @apply inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md bg-primary px-3  font-medium text-primary-foreground !shadow-none ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+
+.cl-card,
+.cl-socialButtonsBlockButton,
+.cl-alert,
+.cl-phoneInputBox,
+.cl-userButtonPopoverCard {
+  @apply rounded-lg border border-input bg-background;
+}
+
+.cl-headerTitle,
+.cl-socialButtonsBlockButtonText,
+.cl-loading,
+.cl-formFieldLabel,
+.cl-formHeaderTitle,
+.cl-selectButton__countryCode,
+.cl-selectButton__countryCode p,
+.cl-selectOption p,
+.cl-selectOption div,
+.cl-modalCloseButton,
+.cl-navbarButton,
+.cl-breadcrumbsItem.cl-breadcrumbsItem__currentPage,
+.cl-profileSectionTitle p,
+.cl-userPreviewTextContainer,
+.cl-profileSectionContent p,
+.cl-form p,
+.cl-accordionTriggerButton {
+  @apply dark:text-foreground;
+}
+
+.cl-headerSubtitle,
+.cl-dividerText,
+.cl-footerActionText,
+.cl-alertText,
+.cl-formFieldInfoText,
+.cl-formFieldSuccessText,
+.cl-identityPreviewText,
+.cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverActionButton svg,
+.cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverFooter p,
+.cl-userButtonPopoverFooter a,
+.cl-formHeaderSubtitle,
+.cl-breadcrumbsItem,
+.cl-breadcrumbsItemDivider,
+.cl-fileDropAreaHint,
+.cl-fileDropAreaFooterHint,
+.cl-form
+  p[data-localization-key="userProfile.emailAddressPage.emailCode.formHint"],
+p[data-localization-key="userProfile.profilePage.successMessage"] {
+  @apply text-muted-foreground;
+}
+
+.cl-dividerLine {
+  @apply bg-border;
+}
+
+.cl-formFieldInput[type="text"],
+.cl-formFieldInput[type="email"],
+.cl-formFieldInput[type="password"] {
+  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-foreground ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.cl-footerActionLink {
+  @apply text-accent-foreground underline hover:text-accent-foreground/90;
+}
+
+.cl-otpCodeFieldInput {
+  @apply !border !border-input text-foreground;
+}
+
+.cl-formResendCodeLink {
+  @apply text-primary disabled:opacity-90;
+}
+
+.cl-selectSearchInput__countryCode {
+  @apply flex h-10 w-full rounded-md border border-b border-input bg-background text-foreground ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.cl-selectOptionsContainer__countryCode {
+  @apply border border-input bg-background;
+}
+
+.cl-internal-icon,
+.cl-userPreviewSecondaryIdentifier__userButton {
+  @apply text-foreground;
+}
+
+button[data-localization-key="userProfile.start.dangerSection.deleteAccountButton"] {
+  @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
+}
+
+.cl-fileDropAreaBox {
+  @apply dark:bg-gray-900;
+}
+
+.cl-fileDropAreaIconBox {
+  @apply dark:bg-gray-800;
+}
+
+.cl-fileDropAreaIcon {
+  @apply dark:text-gray-400;
+}
+
+.cl-fileDropAreaButtonPrimary {
+  @apply h-10 px-4 py-2 text-foreground transition-colors hover:bg-secondary hover:text-accent-foreground;
+}
+
+.cl-userButtonPopoverActionButton,
+.cl-profileSectionPrimaryButton,
+.cl-accordionTriggerButton,
+.cl-navbarButton {
+  @apply hover:bg-accent hover:text-accent-foreground;
+}
+
+.cl-card {
+  @apply rounded-lg shadow-md;
+}
+
+.cl-userButtonPopoverCard {
+  @apply rounded-md;
+}
+
+.cl-userButtonPopoverFooter a {
+  @apply hover:text-muted-foreground;
+}
+
+.cl-badge {
+  @apply rounded-full border border-input bg-background px-2.5 py-0.5 text-xs text-foreground !shadow-none;
+}
+
+.cl-badge[data-localization-key="badge__unverified"] {
+  @apply border bg-transparent text-destructive dark:text-red-500;
+}
+
+.cl-formButtonReset {
+  @apply text-foreground hover:bg-secondary;
+}
+
+.cl-footer {
+  @apply rounded-b-lg border-x border-b bg-background bg-gradient-to-t from-background to-background  text-muted-foreground;
+}
+.cl-userButtonPopoverFooter {
+  @apply rounded-b-lg bg-gradient-to-t from-background to-background;
+}
+
+.cl-signIn-start,
+.cl-signUp-start,
+.cl-signIn-password,
+.cl-signIn-alternativeMethods,
+.cl-signIn-emailCode {
+  @apply rounded-b-none border-b-0;
+}
+
+.cl-cardBox {
+  @apply rounded-lg shadow-sm;
+}
+
+.cl-socialButtonsBlockButton {
+  @apply h-10 !border;
+}
+
+.cl-alternativeMethods .cl-alternativeMethodsBlockButton {
+  @apply h-10 !border border-input text-muted-foreground;
+}
+
+.cl-alternativeMethodsBlockButton {
+  @apply h-10 !shadow-none;
+}
+
+.cl-navbar {
+  @apply rounded-lg border-y border-l bg-gradient-to-t from-background to-background;
+}
+
+.cl-scrollBox {
+  @apply rounded-lg rounded-l-none border border-input bg-gradient-to-t from-background to-background;
+}
+
+h1[data-localization-key="userProfile.navbar.title"] {
+  @apply text-foreground;
+}
+
+.cl-profilePage > .cl-header {
+  @apply border-b;
+}
+
+.cl-profileSection__profile,
+.cl-profileSection__emailAddresses {
+  @apply border-b;
+}
+
+.cl-menuButton {
+  @apply text-foreground hover:text-foreground;
+}
+
+.cl-menuList {
+  @apply border border-input bg-background;
+}
+
+.cl-actionCard {
+  @apply border border-input bg-background;
+}
+
+.cl-menuItem[data-color="neutral"] {
+  @apply text-foreground hover:bg-muted;
+}
+
+.cl-avatarImageActionsUpload {
+  @apply !border border-input text-foreground;
+}
+
+.cl-userButtonPopoverMain {
+  @apply rounded-lg border-input bg-background;
+}
+.cl-internal-df7v37 {
+  display: none;
+}

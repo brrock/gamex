@@ -10,7 +10,7 @@
 /coverage
 
 # next.js
-**/.next/
+.next/
 /out/
 
 # production
@@ -36,4 +36,3 @@ yarn-error.log*
 next-env.d.ts
 prisma/migrations
 **/**/app/test
-.turbo

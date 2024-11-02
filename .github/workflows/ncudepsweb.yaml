@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  update-dependencies:
+  update-dependencies-web:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -26,7 +26,7 @@ jobs:
       - name: Run npm-check-updates and Extract Updated Packages
         id: run-ncu
         run: |
-          ncu -w ui  > ncu.log
+          ncu -u --prefix apps/web > ncu.log
           cat ncu.log
           
           # Extract updated packages and their new versions
