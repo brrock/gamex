@@ -7,7 +7,7 @@
     "ADMIN_CLERK_ID",
     "REDIS_URL"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "outputs": [".next/**", "!.next/cache/**"],
       "dependsOn": ["^build"],
