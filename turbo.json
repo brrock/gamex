@@ -1,10 +1,23 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "tasks": {
+  "globalEnv": [
+    "CLERK_SECRET_KEY",
+    "DATABASE_URL",
+    "WEBHOOK_SECRET",
+    "ADMIN_CLERK_ID",
+    "REDIS_URL"
+  ],
+  "pipeline": {
     "build": {
       "outputs": [".next/**", "!.next/cache/**"],
       "dependsOn": ["^build"],
-      "inputs": [".env", ".env.local", "DATABASE_URL", "CLERK_SERCET_KEY", "WEBHOOK_SECRET", "REDIS_URL", "ADMIN_CLERK_ID"]
+      "env": [
+        "CLERK_SECRET_KEY",
+        "DATABASE_URL",
+        "WEBHOOK_SECRET",
+        "ADMIN_CLERK_ID",
+        "REDIS_URL"
+      ]
     },
     "lint": {},
     "dev": {
@@ -15,22 +28,32 @@
       "cache": false,
       "persistent": true
     },
-    "ui:build": {
+    "ui#build": {
       "cache": false,
       "persistent": true,
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "env": [
+        "CLERK_SECRET_KEY",
+        "DATABASE_URL",
+        "WEBHOOK_SECRET",
+        "ADMIN_CLERK_ID",
+        "REDIS_URL"
+      ]
     },
-    "gamex:build": {  
-      "inputs": [".env", ".env.local", "DATABASE_URL", "CLERK_SERCET_KEY", "WEBHOOK_SECRET", "REDIS_URL", "ADMIN_CLERK_ID"],
-      "persistent": true 
+    "gamex#build": {
+      "persistent": true,
+      "env": [
+        "CLERK_SECRET_KEY",
+        "DATABASE_URL",
+        "WEBHOOK_SECRET",
+        "ADMIN_CLERK_ID",
+        "REDIS_URL"
+      ]
     },
-   "prettier": {
+    "prettier": {
       "cache": false,
       "persistent": true
     }
   },
-  "globalDependencies": [".env", ".env.local" ],
-
-  "ui": "tui"
-
+  "globalDependencies": [".env", ".env.local"]
 }
