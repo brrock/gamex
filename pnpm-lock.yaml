@@ -11,6 +11,19 @@ importers:
       turbo:
         specifier: ^2.2.3
         version: 2.2.3
+    devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3.1.0
+        version: 3.1.0
+      '@eslint/js':
+        specifier: ^9.14.0
+        version: 9.14.0
+      eslint:
+        specifier: ^9
+        version: 9.14.0(jiti@1.21.6)
+      eslint-config-turbo:
+        specifier: ^2.2.3
+        version: 2.2.3(eslint@9.14.0(jiti@1.21.6))
 
   apps/web:
     dependencies:
@@ -1615,6 +1628,10 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
+  dotenv@16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
@@ -1706,6 +1723,11 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
+  eslint-config-turbo@2.2.3:
+    resolution: {integrity: sha512-/zwNU+G2w0HszXzWILdl6/Catt86ejUG7vsFSdpnFzFAAUbbT2TxgoCFvC1fKtm6+SkQsXwkRRe9tFz0aMftpg==}
+    peerDependencies:
+      eslint: '>6.6.0'
+
   eslint-html-parser@1.0.1:
     resolution: {integrity: sha512-pvayh9SJo9h6U49cy9K1PxOyuE+vSeW2GZ6WHC2SVO29rYqud8cegJSNlFlRd+WOBwRCIHsiQlEIIiG29EkvrA==}
 
@@ -1779,6 +1801,11 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+
+  eslint-plugin-turbo@2.2.3:
+    resolution: {integrity: sha512-LHt35VwxthdGVO6hQRfvmFb6ee8/exAzAYWCy4o87Bnp7urltP8qg7xMd4dPSLAhtfnI2xSo1WgeVaR3MeItxw==}
+    peerDependencies:
+      eslint: '>6.6.0'
 
   eslint-scope@4.0.3:
     resolution: {integrity: sha512-p7VutNr1O/QrxysMo3E45FjYDTeXBy0iTltPFNSqKAIfjDSXC+4dj+qfyuD8bfAXrW/y6lW3O76VaYNPKfpKrg==}
@@ -5074,6 +5101,8 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.8.1
 
+  dotenv@16.0.3: {}
+
   eastasianwidth@0.2.0: {}
 
   electron-to-chromium@1.5.50: {}
@@ -5242,6 +5271,11 @@ snapshots:
     dependencies:
       eslint: 9.14.0(jiti@1.21.6)
 
+  eslint-config-turbo@2.2.3(eslint@9.14.0(jiti@1.21.6)):
+    dependencies:
+      eslint: 9.14.0(jiti@1.21.6)
+      eslint-plugin-turbo: 2.2.3(eslint@9.14.0(jiti@1.21.6))
+
   eslint-html-parser@1.0.1:
     dependencies:
       eslint: 5.16.0
@@ -5368,6 +5402,11 @@ snapshots:
       eslint-html-parser: 1.0.1
     transitivePeerDependencies:
       - supports-color
+
+  eslint-plugin-turbo@2.2.3(eslint@9.14.0(jiti@1.21.6)):
+    dependencies:
+      dotenv: 16.0.3
+      eslint: 9.14.0(jiti@1.21.6)
 
   eslint-scope@4.0.3:
     dependencies:

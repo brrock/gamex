@@ -4,7 +4,7 @@
     "build": {
       "outputs": [".next/**", "!.next/cache/**"],
       "dependsOn": ["^build"],
-      "inputs": [".env", ".env.local"]
+      "inputs": [".env", ".env.local", "DATABASE_URL", "CLERK_SERCET_KEY", "WEBHOOK_SECRET", "REDIS_URL", "ADMIN_CLERK_ID"]
     },
     "lint": {},
     "dev": {
