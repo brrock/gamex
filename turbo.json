@@ -55,5 +55,6 @@
       "persistent": true
     }
   },
-  "globalDependencies": [".env", ".env.local"]
+  "globalDependencies": [".env", ".env.local"],
+  "ui": "tui"
 }

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["ui"],
+  transpilePackages: ["ui", "api"],
   output: 'standalone',
   typescript: {
     ignoreBuildErrors: true,

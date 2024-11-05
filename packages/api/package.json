@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "dev": "NODE_ENV=development tsup --watch",
+    "build": "NODE_ENV=production tsup"
+  },
+  "dependencies": {
+    "@vercel/routing-utils": "^3.1.0",
+    "glob": "^11.0.0",
+    "hono": "^4.6.8",
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.8.7",
+    "tsup": "^6.7.0",
+    "typescript": "^5.6.3"
+  }
+}
