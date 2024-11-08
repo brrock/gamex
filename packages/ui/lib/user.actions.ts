@@ -1,4 +1,4 @@
-import prisma from "@/db/prisma";
+import prisma from "utils/db/prisma";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import { Role, User } from "@prisma/client";
 

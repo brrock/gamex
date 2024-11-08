@@ -38,4 +38,4 @@ prisma/migrations
 **/**/app/test
 .turbo
 packages/ui/dist
-packages/api/dist
+packages/**/dist

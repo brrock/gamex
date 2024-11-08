@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "NODE_ENV=development concurrently \"node generate-exports.js\" \"tsup --watch\"",
-    "build": "NODE_ENV=production node generate-exports.js && tsup",
+    "dev": "tsup --watch",
+    "build": "tsup",
     "lint": "eslint .",
     "prettier": "prettier --w .",
     "ui": "pnpm dlx shadcn@latest"
@@ -29,7 +29,6 @@
     "@types/react": "npm:types-react@19.0.0-alpha.3",
     "@types/react-dom": "npm:types-react-dom@19.0.0-alpha.3",
     "autoprefixer": "^10.4.20",
-    "concurrently": "^9.0.1",
     "eslint": "^9",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.37.2",

@@ -37,7 +37,8 @@
         "DATABASE_URL",
         "WEBHOOK_SECRET",
         "ADMIN_CLERK_ID",
-        "REDIS_URL"
+        "REDIS_URL",
+        "DIRECT_URL"
       ]
     },
     "gamex#build": {
@@ -47,7 +48,8 @@
         "DATABASE_URL",
         "WEBHOOK_SECRET",
         "ADMIN_CLERK_ID",
-        "REDIS_URL"
+        "REDIS_URL",
+        "DIRECT_URL"
       ]
     },
     "prettier": {
@@ -55,6 +57,6 @@
       "persistent": true
     }
   },
-  "globalDependencies": [".env", ".env.local"],
+  "globalDependencies": [".env", ".env.local", "NODE_ENV"],
   "ui": "tui"
 }

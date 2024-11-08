@@ -127,7 +127,7 @@ export async function getUserStats(): Promise<UserStats> {
       MODERATOR: 0,
     };
 
-    userCountsByRole.forEach((roleData) => {
+    userCountsByRole.forEach((roleData: { role: string | number; _count: { role: any; }; }) => {
       roleCounts[roleData.role] = roleData._count.role;
     });
 

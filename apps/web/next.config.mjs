@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
+import { PrismaPlugin} from "@prisma/nextjs-monorepo-workaround-plugin"
 const nextConfig = {
-  transpilePackages: ["ui", "api"],
+transpilePackages: ["ui", "api", "database"],
   output: 'standalone',
   typescript: {
     ignoreBuildErrors: true,
@@ -8,6 +9,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins = [...config.plugins, new PrismaPlugin()]
+    }
+    return config
+  }
 };
 
 export default nextConfig;
