@@ -7,7 +7,7 @@
   },
   "scripts": {
     "db:push": "prisma db push --skip-generate",
-    "postinstall": "npx prisma generate"
+    "postinstall": "pnpx prisma generate"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.3",

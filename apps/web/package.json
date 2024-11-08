@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": false,
   "scripts": {
-    "postinstall": "pnpx  prisma generate",
     "dev": "next dev",
-    "build": "npx prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --w ."

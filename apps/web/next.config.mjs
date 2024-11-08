@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
-import { PrismaPlugin} from "@prisma/nextjs-monorepo-workaround-plugin"
+import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 const nextConfig = {
-transpilePackages: ["ui", "api", "database"],
-  output: 'standalone',
+  transpilePackages: ["ui", "api", "database"],
+  output: "standalone",
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -11,10 +11,10 @@ transpilePackages: ["ui", "api", "database"],
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()]
+      config.plugins = [...config.plugins, new PrismaPlugin()];
     }
-    return config
-  }
+    return config;
+  },
 };
 
 export default nextConfig;

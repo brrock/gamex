@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     switch (eventType) {
       case "user.created": {
         const { email_addresses, image_url, username } = evt.data;
-        
+
         if (!email_addresses?.[0]?.email_address) {
           console.error("No email address found for user");
           return new Response("No email address found", { status: 400 });
@@ -80,11 +80,11 @@ export async function POST(req: Request) {
           console.error("Failed to create user in database");
           try {
             await fetch(`https://api.clerk.com/v1/users/${id}`, {
-              method: 'DELETE',
+              method: "DELETE",
               headers: {
-                'Authorization': `Bearer ${process.env.CLERK_SECRET_KEY}`,
-                'Content-Type': 'application/json'
-              }
+                Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+                "Content-Type": "application/json",
+              },
             });
           } catch (error) {
             console.error("Error deleting Clerk user:", error);
@@ -94,16 +94,16 @@ export async function POST(req: Request) {
 
         try {
           await fetch(`https://api.clerk.com/v1/users/${id}/metadata`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-              'Authorization': `Bearer ${process.env.CLERK_SECRET_KEY}`,
-              'Content-Type': 'application/json'
+              Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               public_metadata: {
-                userId: newUser.id
-              }
-            })
+                userId: newUser.id,
+              },
+            }),
           });
         } catch (error) {
           console.error("Error updating Clerk metadata:", error);
@@ -121,16 +121,24 @@ export async function POST(req: Request) {
         };
 
         const updatedUser = await updateUser(id, user);
-        return NextResponse.json({ message: "User updated", user: updatedUser });
+        return NextResponse.json({
+          message: "User updated",
+          user: updatedUser,
+        });
       }
 
       case "user.deleted": {
         const deletedUser = await deleteUser(id);
-        return NextResponse.json({ message: "User deleted", user: deletedUser });
+        return NextResponse.json({
+          message: "User deleted",
+          user: deletedUser,
+        });
       }
 
       default:
-        return new Response(`Unhandled webhook event: ${eventType}`, { status: 400 });
+        return new Response(`Unhandled webhook event: ${eventType}`, {
+          status: 400,
+        });
     }
   } catch (error) {
     console.error(`Webhook error:`, error);

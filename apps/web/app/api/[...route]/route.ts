@@ -1,7 +1,7 @@
 // apps/web/app/api/[...route]/route.ts
-import { createHandler } from 'api';
+import { createHandler } from "api";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 const handler = createHandler();
 
