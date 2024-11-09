@@ -1,22 +1,13 @@
-import { auth } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
 
-export async function GET() {
-  const { userId } = auth();
+import { getAuth } from '@clerk/nextjs/server'
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function GET(request: NextRequest) {
+  const { userId } = await getAuth(request)
 
   if (!userId) {
-    // Create the response first
-    const response = new NextResponse(
-      JSON.stringify({ error: "Unauthorized" }),
-      {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      },
-    );
-
-    // Return the awaited response
-    return await response;
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  return NextResponse.json({ userId });
+  return NextResponse.json({ userId: userId })
 }

@@ -2,7 +2,7 @@
 import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 const nextConfig = {
   transpilePackages: ["ui", "api", "database"],
-  output: "standalone",
+  output: "standalone", 
   typescript: {
     ignoreBuildErrors: true,
   },

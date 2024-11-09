@@ -16,7 +16,7 @@ updatedAt DateTime @updatedAt
 username  String?  @unique
 clerkId   String   @unique
 image_url String?
-credits   Int      @default(0)
+credits   Int      @default(200)
 role      Role     @default(USER)
 }
 
@@ -24,4 +24,4 @@ enum Role {
 USER
 ADMIN
 MODERATOR
-}
+} 
