@@ -11,5 +11,10 @@
     "eslint": "^9",
     "prettier": "^3.3.3",
     "typescript": "^5.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brrock/gamex.git",
+    "directory": "packages/dev-node-sdk"
   }
 }
