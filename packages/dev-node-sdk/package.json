@@ -1,20 +1,29 @@
 {
-  "name": "@gamex/gamex-node-sdk",
+  "name": "@gamex-official/gamex-node-sdk",
   "version": "1.0.0",
   "description": "Developer SDK for Gamex",
   "private": false,
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "gamex"
+  ],
+  "author": "Brrock",
+  "license": "MIT",
   "devDependencies": {
-    "@types/node": "^22.9.0",
+    "@types/node": "^20.11.0",
     "eslint": "^9",
     "prettier": "^3.3.3",
     "typescript": "^5.6.3"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brrock/gamex.git",
     "directory": "packages/dev-node-sdk"
+  },
+  "dependencies": {
+    "tsup": "^6.7.0",
+    "zod": "^3.23.8"
   }
 }

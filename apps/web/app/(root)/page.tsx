@@ -1,10 +1,9 @@
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import SignedDevSignUp from "ui/components/signed-out/dev";
 import { SignedOutfooter } from "ui/components/signed-out/footer";
 import Hero from "ui/components/signed-out/hero";
 import SignedOutMobileNav from "ui/components/signed-out/mobile-nav";
 import SignedOutNav from "ui/components/signed-out/nav";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import React from "react";
 
 const Home = () => {
   return (

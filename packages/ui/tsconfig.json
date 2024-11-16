@@ -14,7 +14,7 @@
     "module": "ESNext",
     "target": "ES6",
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
@@ -24,5 +24,6 @@
       "@/*": ["./*"]
     },
     "baseUrl": "."
-  }
+  },
+
 }

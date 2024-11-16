@@ -16,7 +16,8 @@
         "DATABASE_URL",
         "WEBHOOK_SECRET",
         "ADMIN_CLERK_ID",
-        "REDIS_URL"
+        "REDIS_URL",
+        "CLERK_PUBLISHABLE_KEY"
       ]
     },
     "lint": {},

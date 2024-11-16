@@ -1,7 +1,9 @@
 
 export * from '@prisma/client';
 export { PrismaClient as PrismaClientEdge } from '@prisma/client/edge';
-
+export type { Prisma } from "@prisma/client";
+export type { Game } from "@prisma/client";
+export type { PlayerData } from "@prisma/client";
 import { Pool, neonConfig } from '@neondatabase/serverless'
 import { PrismaNeon } from '@prisma/adapter-neon'
 import { PrismaClient } from '@prisma/client'

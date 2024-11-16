@@ -281,11 +281,13 @@ function SignedOutfooter() {
 }
 
 // components/signed-out/hero.tsx
+var import_react = require("react");
 var import_link2 = __toESM(require("next/link"));
+var import_framer_motion = require("framer-motion");
 var import_jsx_runtime5 = require("react/jsx-runtime");
 
 // components/ui/sheet.tsx
-var React3 = __toESM(require("react"));
+var React4 = __toESM(require("react"));
 var SheetPrimitive = __toESM(require("@radix-ui/react-dialog"));
 var import_class_variance_authority2 = require("class-variance-authority");
 var import_lucide_react = require("lucide-react");
@@ -294,7 +296,7 @@ var Sheet = SheetPrimitive.Root;
 var SheetTrigger = SheetPrimitive.Trigger;
 var SheetClose = SheetPrimitive.Close;
 var SheetPortal = SheetPrimitive.Portal;
-var SheetOverlay = React3.forwardRef((_a, ref) => {
+var SheetOverlay = React4.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
     SheetPrimitive.Overlay,
@@ -325,7 +327,7 @@ var sheetVariants = (0, import_class_variance_authority2.cva)(
     }
   }
 );
-var SheetContent = React3.forwardRef((_a, ref) => {
+var SheetContent = React4.forwardRef((_a, ref) => {
   var _b = _a, { side = "right", className, children } = _b, props = __objRest(_b, ["side", "className", "children"]);
   return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(SheetPortal, { children: [
     /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(SheetOverlay, {}),
@@ -381,7 +383,7 @@ var SheetFooter = (_a) => {
   );
 };
 SheetFooter.displayName = "SheetFooter";
-var SheetTitle = React3.forwardRef((_a, ref) => {
+var SheetTitle = React4.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
     SheetPrimitive.Title,
@@ -392,7 +394,7 @@ var SheetTitle = React3.forwardRef((_a, ref) => {
   );
 });
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
-var SheetDescription = React3.forwardRef((_a, ref) => {
+var SheetDescription = React4.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
     SheetPrimitive.Description,
@@ -412,7 +414,7 @@ var import_lucide_react3 = require("lucide-react");
 var import_next_themes = require("next-themes");
 
 // components/ui/dropdown-menu.tsx
-var React4 = __toESM(require("react"));
+var React5 = __toESM(require("react"));
 var DropdownMenuPrimitive = __toESM(require("@radix-ui/react-dropdown-menu"));
 var import_lucide_react2 = require("lucide-react");
 var import_jsx_runtime7 = require("react/jsx-runtime");
@@ -422,7 +424,7 @@ var DropdownMenuGroup = DropdownMenuPrimitive.Group;
 var DropdownMenuPortal = DropdownMenuPrimitive.Portal;
 var DropdownMenuSub = DropdownMenuPrimitive.Sub;
 var DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
-var DropdownMenuSubTrigger = React4.forwardRef((_a, ref) => {
+var DropdownMenuSubTrigger = React5.forwardRef((_a, ref) => {
   var _b = _a, { className, inset, children } = _b, props = __objRest(_b, ["className", "inset", "children"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
     DropdownMenuPrimitive.SubTrigger,
@@ -442,7 +444,7 @@ var DropdownMenuSubTrigger = React4.forwardRef((_a, ref) => {
   );
 });
 DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName;
-var DropdownMenuSubContent = React4.forwardRef((_a, ref) => {
+var DropdownMenuSubContent = React5.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
     DropdownMenuPrimitive.SubContent,
@@ -456,7 +458,7 @@ var DropdownMenuSubContent = React4.forwardRef((_a, ref) => {
   );
 });
 DropdownMenuSubContent.displayName = DropdownMenuPrimitive.SubContent.displayName;
-var DropdownMenuContent = React4.forwardRef((_a, ref) => {
+var DropdownMenuContent = React5.forwardRef((_a, ref) => {
   var _b = _a, { className, sideOffset = 4 } = _b, props = __objRest(_b, ["className", "sideOffset"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
     DropdownMenuPrimitive.Content,
@@ -471,7 +473,7 @@ var DropdownMenuContent = React4.forwardRef((_a, ref) => {
   ) });
 });
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
-var DropdownMenuItem = React4.forwardRef((_a, ref) => {
+var DropdownMenuItem = React5.forwardRef((_a, ref) => {
   var _b = _a, { className, inset } = _b, props = __objRest(_b, ["className", "inset"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
     DropdownMenuPrimitive.Item,
@@ -486,7 +488,7 @@ var DropdownMenuItem = React4.forwardRef((_a, ref) => {
   );
 });
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
-var DropdownMenuCheckboxItem = React4.forwardRef((_a, ref) => {
+var DropdownMenuCheckboxItem = React5.forwardRef((_a, ref) => {
   var _b = _a, { className, children, checked } = _b, props = __objRest(_b, ["className", "children", "checked"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
     DropdownMenuPrimitive.CheckboxItem,
@@ -506,7 +508,7 @@ var DropdownMenuCheckboxItem = React4.forwardRef((_a, ref) => {
   );
 });
 DropdownMenuCheckboxItem.displayName = DropdownMenuPrimitive.CheckboxItem.displayName;
-var DropdownMenuRadioItem = React4.forwardRef((_a, ref) => {
+var DropdownMenuRadioItem = React5.forwardRef((_a, ref) => {
   var _b = _a, { className, children } = _b, props = __objRest(_b, ["className", "children"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
     DropdownMenuPrimitive.RadioItem,
@@ -525,7 +527,7 @@ var DropdownMenuRadioItem = React4.forwardRef((_a, ref) => {
   );
 });
 DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName;
-var DropdownMenuLabel = React4.forwardRef((_a, ref) => {
+var DropdownMenuLabel = React5.forwardRef((_a, ref) => {
   var _b = _a, { className, inset } = _b, props = __objRest(_b, ["className", "inset"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
     DropdownMenuPrimitive.Label,
@@ -540,7 +542,7 @@ var DropdownMenuLabel = React4.forwardRef((_a, ref) => {
   );
 });
 DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
-var DropdownMenuSeparator = React4.forwardRef((_a, ref) => {
+var DropdownMenuSeparator = React5.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
     DropdownMenuPrimitive.Separator,
@@ -601,7 +603,7 @@ function ThemeProvider(_a) {
 }
 
 // components/ui/dialog.tsx
-var React5 = __toESM(require("react"));
+var React6 = __toESM(require("react"));
 var DialogPrimitive = __toESM(require("@radix-ui/react-dialog"));
 var import_lucide_react4 = require("lucide-react");
 var import_jsx_runtime12 = require("react/jsx-runtime");
@@ -609,7 +611,7 @@ var Dialog = DialogPrimitive.Root;
 var DialogTrigger = DialogPrimitive.Trigger;
 var DialogPortal = DialogPrimitive.Portal;
 var DialogClose = DialogPrimitive.Close;
-var DialogOverlay = React5.forwardRef((_a, ref) => {
+var DialogOverlay = React6.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
     DialogPrimitive.Overlay,
@@ -623,7 +625,7 @@ var DialogOverlay = React5.forwardRef((_a, ref) => {
   );
 });
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
-var DialogContent = React5.forwardRef((_a, ref) => {
+var DialogContent = React6.forwardRef((_a, ref) => {
   var _b = _a, { className, children } = _b, props = __objRest(_b, ["className", "children"]);
   return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(DialogPortal, { children: [
     /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(DialogOverlay, {}),
@@ -682,7 +684,7 @@ var DialogFooter = (_a) => {
   );
 };
 DialogFooter.displayName = "DialogFooter";
-var DialogTitle = React5.forwardRef((_a, ref) => {
+var DialogTitle = React6.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
     DialogPrimitive.Title,
@@ -696,7 +698,7 @@ var DialogTitle = React5.forwardRef((_a, ref) => {
   );
 });
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
-var DialogDescription = React5.forwardRef((_a, ref) => {
+var DialogDescription = React6.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
     DialogPrimitive.Description,
@@ -709,9 +711,9 @@ var DialogDescription = React5.forwardRef((_a, ref) => {
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 // components/ui/input.tsx
-var React6 = __toESM(require("react"));
+var React7 = __toESM(require("react"));
 var import_jsx_runtime13 = require("react/jsx-runtime");
-var Input = React6.forwardRef(
+var Input = React7.forwardRef(
   (_a, ref) => {
     var _b = _a, { className, type } = _b, props = __objRest(_b, ["className", "type"]);
     return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
@@ -730,14 +732,14 @@ var Input = React6.forwardRef(
 Input.displayName = "Input";
 
 // components/ui/label.tsx
-var React7 = __toESM(require("react"));
+var React8 = __toESM(require("react"));
 var LabelPrimitive = __toESM(require("@radix-ui/react-label"));
 var import_class_variance_authority3 = require("class-variance-authority");
 var import_jsx_runtime14 = require("react/jsx-runtime");
 var labelVariants = (0, import_class_variance_authority3.cva)(
   "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 );
-var Label2 = React7.forwardRef((_a, ref) => {
+var Label2 = React8.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
     LabelPrimitive.Root,
@@ -750,14 +752,14 @@ var Label2 = React7.forwardRef((_a, ref) => {
 Label2.displayName = LabelPrimitive.Root.displayName;
 
 // components/ui/select.tsx
-var React8 = __toESM(require("react"));
+var React9 = __toESM(require("react"));
 var SelectPrimitive = __toESM(require("@radix-ui/react-select"));
 var import_lucide_react5 = require("lucide-react");
 var import_jsx_runtime15 = require("react/jsx-runtime");
 var Select = SelectPrimitive.Root;
 var SelectGroup = SelectPrimitive.Group;
 var SelectValue = SelectPrimitive.Value;
-var SelectTrigger = React8.forwardRef((_a, ref) => {
+var SelectTrigger = React9.forwardRef((_a, ref) => {
   var _b = _a, { className, children } = _b, props = __objRest(_b, ["className", "children"]);
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
     SelectPrimitive.Trigger,
@@ -776,7 +778,7 @@ var SelectTrigger = React8.forwardRef((_a, ref) => {
   );
 });
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
-var SelectScrollUpButton = React8.forwardRef((_a, ref) => {
+var SelectScrollUpButton = React9.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     SelectPrimitive.ScrollUpButton,
@@ -792,7 +794,7 @@ var SelectScrollUpButton = React8.forwardRef((_a, ref) => {
   );
 });
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
-var SelectScrollDownButton = React8.forwardRef((_a, ref) => {
+var SelectScrollDownButton = React9.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     SelectPrimitive.ScrollDownButton,
@@ -808,7 +810,7 @@ var SelectScrollDownButton = React8.forwardRef((_a, ref) => {
   );
 });
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
-var SelectContent = React8.forwardRef((_a, ref) => {
+var SelectContent = React9.forwardRef((_a, ref) => {
   var _b = _a, { className, children, position = "popper" } = _b, props = __objRest(_b, ["className", "children", "position"]);
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(SelectPrimitive.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
     SelectPrimitive.Content,
@@ -839,7 +841,7 @@ var SelectContent = React8.forwardRef((_a, ref) => {
   ) });
 });
 SelectContent.displayName = SelectPrimitive.Content.displayName;
-var SelectLabel = React8.forwardRef((_a, ref) => {
+var SelectLabel = React9.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     SelectPrimitive.Label,
@@ -850,7 +852,7 @@ var SelectLabel = React8.forwardRef((_a, ref) => {
   );
 });
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
-var SelectItem = React8.forwardRef((_a, ref) => {
+var SelectItem = React9.forwardRef((_a, ref) => {
   var _b = _a, { className, children } = _b, props = __objRest(_b, ["className", "children"]);
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
     SelectPrimitive.Item,
@@ -869,7 +871,7 @@ var SelectItem = React8.forwardRef((_a, ref) => {
   );
 });
 SelectItem.displayName = SelectPrimitive.Item.displayName;
-var SelectSeparator = React8.forwardRef((_a, ref) => {
+var SelectSeparator = React9.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     SelectPrimitive.Separator,
@@ -937,9 +939,9 @@ function Spinner({
 }
 
 // components/ui/table.tsx
-var React9 = __toESM(require("react"));
+var React10 = __toESM(require("react"));
 var import_jsx_runtime18 = require("react/jsx-runtime");
-var Table = React9.forwardRef((_a, ref) => {
+var Table = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "relative w-full overflow-auto", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     "table",
@@ -950,12 +952,12 @@ var Table = React9.forwardRef((_a, ref) => {
   ) });
 });
 Table.displayName = "Table";
-var TableHeader = React9.forwardRef((_a, ref) => {
+var TableHeader = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("thead", __spreadValues({ ref, className: cn("[&_tr]:border-b", className) }, props));
 });
 TableHeader.displayName = "TableHeader";
-var TableBody = React9.forwardRef((_a, ref) => {
+var TableBody = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     "tbody",
@@ -966,7 +968,7 @@ var TableBody = React9.forwardRef((_a, ref) => {
   );
 });
 TableBody.displayName = "TableBody";
-var TableFooter = React9.forwardRef((_a, ref) => {
+var TableFooter = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     "tfoot",
@@ -980,7 +982,7 @@ var TableFooter = React9.forwardRef((_a, ref) => {
   );
 });
 TableFooter.displayName = "TableFooter";
-var TableRow = React9.forwardRef((_a, ref) => {
+var TableRow = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     "tr",
@@ -994,7 +996,7 @@ var TableRow = React9.forwardRef((_a, ref) => {
   );
 });
 TableRow.displayName = "TableRow";
-var TableHead = React9.forwardRef((_a, ref) => {
+var TableHead = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     "th",
@@ -1008,7 +1010,7 @@ var TableHead = React9.forwardRef((_a, ref) => {
   );
 });
 TableHead.displayName = "TableHead";
-var TableCell = React9.forwardRef((_a, ref) => {
+var TableCell = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     "td",
@@ -1019,7 +1021,7 @@ var TableCell = React9.forwardRef((_a, ref) => {
   );
 });
 TableCell.displayName = "TableCell";
-var TableCaption = React9.forwardRef((_a, ref) => {
+var TableCaption = React10.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     "caption",
@@ -1032,11 +1034,11 @@ var TableCaption = React9.forwardRef((_a, ref) => {
 TableCaption.displayName = "TableCaption";
 
 // components/ui/tabs.tsx
-var React10 = __toESM(require("react"));
+var React11 = __toESM(require("react"));
 var TabsPrimitive = __toESM(require("@radix-ui/react-tabs"));
 var import_jsx_runtime19 = require("react/jsx-runtime");
 var Tabs = TabsPrimitive.Root;
-var TabsList = React10.forwardRef((_a, ref) => {
+var TabsList = React11.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
     TabsPrimitive.List,
@@ -1050,7 +1052,7 @@ var TabsList = React10.forwardRef((_a, ref) => {
   );
 });
 TabsList.displayName = TabsPrimitive.List.displayName;
-var TabsTrigger = React10.forwardRef((_a, ref) => {
+var TabsTrigger = React11.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
     TabsPrimitive.Trigger,
@@ -1064,7 +1066,7 @@ var TabsTrigger = React10.forwardRef((_a, ref) => {
   );
 });
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
-var TabsContent = React10.forwardRef((_a, ref) => {
+var TabsContent = React11.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
     TabsPrimitive.Content,
@@ -1080,13 +1082,13 @@ var TabsContent = React10.forwardRef((_a, ref) => {
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
 // components/ui/toast.tsx
-var React11 = __toESM(require("react"));
+var React12 = __toESM(require("react"));
 var ToastPrimitives = __toESM(require("@radix-ui/react-toast"));
 var import_class_variance_authority5 = require("class-variance-authority");
 var import_lucide_react7 = require("lucide-react");
 var import_jsx_runtime20 = require("react/jsx-runtime");
 var ToastProvider = ToastPrimitives.Provider;
-var ToastViewport = React11.forwardRef((_a, ref) => {
+var ToastViewport = React12.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     ToastPrimitives.Viewport,
@@ -1114,7 +1116,7 @@ var toastVariants = (0, import_class_variance_authority5.cva)(
     }
   }
 );
-var Toast = React11.forwardRef((_a, ref) => {
+var Toast = React12.forwardRef((_a, ref) => {
   var _b = _a, { className, variant } = _b, props = __objRest(_b, ["className", "variant"]);
   return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     ToastPrimitives.Root,
@@ -1125,7 +1127,7 @@ var Toast = React11.forwardRef((_a, ref) => {
   );
 });
 Toast.displayName = ToastPrimitives.Root.displayName;
-var ToastAction = React11.forwardRef((_a, ref) => {
+var ToastAction = React12.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     ToastPrimitives.Action,
@@ -1139,7 +1141,7 @@ var ToastAction = React11.forwardRef((_a, ref) => {
   );
 });
 ToastAction.displayName = ToastPrimitives.Action.displayName;
-var ToastClose = React11.forwardRef((_a, ref) => {
+var ToastClose = React12.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     ToastPrimitives.Close,
@@ -1156,7 +1158,7 @@ var ToastClose = React11.forwardRef((_a, ref) => {
   );
 });
 ToastClose.displayName = ToastPrimitives.Close.displayName;
-var ToastTitle = React11.forwardRef((_a, ref) => {
+var ToastTitle = React12.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     ToastPrimitives.Title,
@@ -1167,7 +1169,7 @@ var ToastTitle = React11.forwardRef((_a, ref) => {
   );
 });
 ToastTitle.displayName = ToastPrimitives.Title.displayName;
-var ToastDescription = React11.forwardRef((_a, ref) => {
+var ToastDescription = React12.forwardRef((_a, ref) => {
   var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
   return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     ToastPrimitives.Description,
@@ -1180,7 +1182,7 @@ var ToastDescription = React11.forwardRef((_a, ref) => {
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
 // hooks/use-toast.ts
-var React12 = __toESM(require("react"));
+var React13 = __toESM(require("react"));
 var TOAST_LIMIT = 1;
 var TOAST_REMOVE_DELAY = 1e6;
 var count = 0;
@@ -1276,8 +1278,8 @@ function toast(_a) {
   };
 }
 function useToast() {
-  const [state, setState] = React12.useState(memoryState);
-  React12.useEffect(() => {
+  const [state, setState] = React13.useState(memoryState);
+  React13.useEffect(() => {
     listeners.push(setState);
     return () => {
       const index = listeners.indexOf(setState);
