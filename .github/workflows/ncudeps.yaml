@@ -46,7 +46,7 @@ jobs:
         if: env.EXISTING_PR != 'true'
         id: run-ncu-root
         run: |
-          ncu -w * > ncu-root.log
+          ncu -w ui api database -u  > ncu-root.log
           cat ncu-root.log
           
           # Extract updated packages and their new versions
@@ -59,7 +59,7 @@ jobs:
         id: run-ncu-web
         run: |
           cd apps/web
-          ncu > ../../ncu-web.log
+          ncu -u > ../../ncu-web.log
           cat ../../ncu-web.log
           
           # Extract updated packages and append to existing list
