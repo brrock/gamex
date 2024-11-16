@@ -90,10 +90,8 @@ jobs:
           rm -rf apps/web/node_modules
           
           # Set PNPM to bypass frozen lockfile for dependency updates
-          export NPM_CONFIG_UPDATE_NOTIFIER=false
-          export PNPM_FLAGS="--no-frozen-lockfile"
-          
-          pnpm install $PNPM_FLAGS > npm-install.log 2>&1
+         
+          pnpm i --no-frozen-lockfile > npm-install.log 2>&1
           INSTALL_EXIT_CODE=$?
           
           if [ $INSTALL_EXIT_CODE -ne 0 ]; then
