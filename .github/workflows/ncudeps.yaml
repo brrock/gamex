@@ -59,7 +59,7 @@ jobs:
         id: run-ncu-web
         run: |
           cd apps/web
-          ncu -w * > ../../ncu-web.log
+          ncu > ../../ncu-web.log
           cat ../../ncu-web.log
           
           # Extract updated packages and append to existing list
