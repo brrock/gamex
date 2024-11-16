@@ -46,7 +46,7 @@ jobs:
         if: env.EXISTING_PR != 'true'
         id: run-ncu-root
         run: |
-          ncu -w ui api database -u  > ncu-root.log
+          ncu -w * > ncu-root.log
           cat ncu-root.log
           
           # Extract updated packages and their new versions
@@ -59,7 +59,7 @@ jobs:
         id: run-ncu-web
         run: |
           cd apps/web
-          ncu -u > ../../ncu-web.log
+          ncu -w * > ../../ncu-web.log
           cat ../../ncu-web.log
           
           # Extract updated packages and append to existing list
@@ -89,7 +89,11 @@ jobs:
           rm -rf node_modules
           rm -rf apps/web/node_modules
           
-          pnpm install > npm-install.log 2>&1
+          # Set PNPM to bypass frozen lockfile for dependency updates
+          export NPM_CONFIG_UPDATE_NOTIFIER=false
+          export PNPM_FLAGS="--no-frozen-lockfile"
+          
+          pnpm install $PNPM_FLAGS > npm-install.log 2>&1
           INSTALL_EXIT_CODE=$?
           
           if [ $INSTALL_EXIT_CODE -ne 0 ]; then
@@ -101,6 +105,9 @@ jobs:
         if: env.EXISTING_PR != 'true' && env.HAS_CHANGES == 'true' && env.INSTALL_FAILED != 'true'
         id: build
         run: |
+          # Run build with frozen lockfile (CI behavior)
+          export PNPM_FLAGS="--frozen-lockfile"
+          pnpm install $PNPM_FLAGS > install-verify.log 2>&1
           pnpm build > build.log 2>&1
           BUILD_EXIT_CODE=$?
           
@@ -128,6 +135,13 @@ jobs:
             cat npm-install.log
             echo "\`\`\`"
             echo ""
+            if [ -f install-verify.log ]; then
+              echo "### Verification Install Logs"
+              echo "\`\`\`"
+              cat install-verify.log
+              echo "\`\`\`"
+              echo ""
+            fi
             if [ -f build.log ]; then
               echo "### Build Logs"
               echo "\`\`\`"
