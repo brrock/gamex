@@ -21,7 +21,7 @@ jobs:
           node-version: '20'
 
       - name: Install npm-check-updates
-        run: pnpm install -g npm-check-updates
+        run: npm install -g npm-check-updates pnpm
 
       - name: Run npm-check-updates and Extract Updated Packages
         id: run-ncu
