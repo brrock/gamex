@@ -23,90 +23,168 @@ jobs:
       - name: Install npm-check-updates
         run: npm install -g npm-check-updates pnpm
 
-      - name: Run npm-check-updates and Extract Updated Packages
-        id: run-ncu
+      - name: Check for existing PR
+        id: check-pr
         run: |
-          ncu -w *  > ncu.log
-          cat ncu.log
+          existing_pr=$(gh pr list --json number,title --jq '.[] | select(.title | startswith("deps: Update dependencies")) | .number')
+          if [ ! -z "$existing_pr" ]; then
+            echo "EXISTING_PR=true" >> $GITHUB_ENV
+            echo "Existing dependency update PR found: #$existing_pr"
+            exit 0
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create branch
+        if: env.EXISTING_PR != 'true'
+        run: |
+          BRANCH_NAME="deps/update-$(date +%Y%m%d-%H%M%S)"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          git checkout -b $BRANCH_NAME
+
+      - name: Run npm-check-updates in Root
+        if: env.EXISTING_PR != 'true'
+        id: run-ncu-root
+        run: |
+          ncu -w * > ncu-root.log
+          cat ncu-root.log
           
           # Extract updated packages and their new versions
-          UPDATED_PACKAGES=$(grep -E '^\s*[^ ]+\s+\S+\s+→\s+\S+' ncu.log | sed 's/^ *//' | awk '{gsub("@", "", $1); print $1 " " $4}' | tr '\n' ', ' | sed 's/, $//')
+          UPDATED_PACKAGES=$(grep -E '^\s*[^ ]+\s+\S+\s+→\s+\S+' ncu-root.log | sed 's/^ *//' | awk '{gsub("@", "", $1); print $1 " " $4}' | tr '\n' ', ' | sed 's/, $//')
           
           echo "UPDATED_PACKAGES=$UPDATED_PACKAGES" >> $GITHUB_ENV
 
+      - name: Run npm-check-updates in apps/web
+        if: env.EXISTING_PR != 'true'
+        id: run-ncu-web
+        run: |
+          cd apps/web
+          ncu -w * > ../../ncu-web.log
+          cat ../../ncu-web.log
+          
+          # Extract updated packages and append to existing list
+          WEB_UPDATED_PACKAGES=$(grep -E '^\s*[^ ]+\s+\S+\s+→\s+\S+' ../../ncu-web.log | sed 's/^ *//' | awk '{gsub("@", "", $1); print $1 " " $4}' | tr '\n' ', ' | sed 's/, $//')
+          
+          if [ ! -z "$WEB_UPDATED_PACKAGES" ]; then
+            echo "UPDATED_PACKAGES=$UPDATED_PACKAGES, $WEB_UPDATED_PACKAGES" >> $GITHUB_ENV
+          fi
+
+      - name: Check for changes
+        if: env.EXISTING_PR != 'true'
+        id: check-changes
+        run: |
+          if git diff --quiet package.json apps/web/package.json; then
+            echo "No dependency updates available."
+            echo "HAS_CHANGES=false" >> $GITHUB_ENV
+            exit 0
+          else
+            echo "HAS_CHANGES=true" >> $GITHUB_ENV
+          fi
+
       - name: Install updated dependencies
+        if: env.EXISTING_PR != 'true' && env.HAS_CHANGES == 'true'
         id: install-dependencies
         run: |
+          # Clean install to ensure lock file is updated correctly
+          rm -rf node_modules
+          rm -rf apps/web/node_modules
+          
           pnpm install > npm-install.log 2>&1
           INSTALL_EXIT_CODE=$?
           
-          # Check for peer dependency conflicts
-          if grep -q "Could not resolve dependency" npm-install.log; then
-            echo "PEER_CONFLICT=true" >> $GITHUB_ENV
-            grep -A 5 "peer dep missing" npm-install.log > peer-conflicts.log
-          fi
-          
-          # Check for general install failure
           if [ $INSTALL_EXIT_CODE -ne 0 ]; then
             echo "INSTALL_FAILED=true" >> $GITHUB_ENV
           fi
         continue-on-error: true
 
-      - name: Check for changes and Commit
-        if: env.INSTALL_FAILED != 'true' && env.PEER_CONFLICT != 'true'
+      - name: Run build
+        if: env.EXISTING_PR != 'true' && env.HAS_CHANGES == 'true' && env.INSTALL_FAILED != 'true'
+        id: build
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          pnpm build > build.log 2>&1
+          BUILD_EXIT_CODE=$?
           
-          git add package.json package-lock.json
-          
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          else
-            COMMIT_MESSAGE="deps: ${{ env.UPDATED_PACKAGES }}"
-            echo "Committing with message: $COMMIT_MESSAGE"
-            git commit -m "$COMMIT_MESSAGE"
-            git push
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then
+            echo "BUILD_FAILED=true" >> $GITHUB_ENV
           fi
+        continue-on-error: true
 
-      - name: Create GitHub Issue for npm install issues
-        if: env.INSTALL_FAILED == 'true' || env.PEER_CONFLICT == 'true'
+      - name: Prepare PR description
+        if: env.EXISTING_PR != 'true' && env.HAS_CHANGES == 'true'
+        id: pr-description
+        run: |
+          {
+            echo "## Dependency Updates"
+            echo ""
+            echo "### Updated Packages"
+            echo "\`\`\`"
+            cat ncu-root.log
+            echo ""
+            cat ncu-web.log
+            echo "\`\`\`"
+            echo ""
+            echo "### Installation Logs"
+            echo "\`\`\`"
+            cat npm-install.log
+            echo "\`\`\`"
+            echo ""
+            if [ -f build.log ]; then
+              echo "### Build Logs"
+              echo "\`\`\`"
+              cat build.log
+              echo "\`\`\`"
+            fi
+          } > pr-body.txt
+
+      - name: Create Issue and Draft PR for failures
+        if: env.EXISTING_PR != 'true' && env.HAS_CHANGES == 'true' && (env.INSTALL_FAILED == 'true' || env.BUILD_FAILED == 'true')
         run: |
           if [ "${{ env.INSTALL_FAILED }}" = "true" ]; then
             TITLE="Dependency Update Failed: npm install error"
             BODY_HEADER="## Dependency Update Failed\n\nThe automated dependency update process encountered an error during the npm install step."
           else
-            TITLE="Dependency Update: Peer Dependency Conflicts Detected"
-            BODY_HEADER="## Peer Dependency Conflicts Detected\n\nThe automated dependency update process detected peer dependency conflicts."
+            TITLE="Dependency Update Failed: Build Error"
+            BODY_HEADER="## Build Failed After Dependency Update\n\nThe automated dependency update process encountered an error during the build step."
           fi
 
-          ISSUE_BODY="${BODY_HEADER}
+          # Create issue
+          ISSUE_NUMBER=$(gh issue create --repo ${{ github.repository }} --title "$TITLE" \
+            --body "$(echo -e "$BODY_HEADER\n\n$(cat pr-body.txt)")" --json number -q .number)
 
-          ### npm-check-updates logs:
-          \`\`\`
-          $(cat ncu.log)
-          \`\`\`
+          # Commit changes
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json pnpm-lock.yaml apps/web/package.json
+          git commit -m "deps: Update dependencies (with issues)
 
-          ### npm install logs:
-          \`\`\`
-          $(cat npm-install.log)
-          \`\`\`
-          "
+          Related to #$ISSUE_NUMBER"
+          git push origin ${{ env.BRANCH_NAME }}
 
-          if [ -f peer-conflicts.log ]; then
-            ISSUE_BODY="${ISSUE_BODY}
+          # Create draft PR linking to the issue
+          gh pr create --title "deps: Update dependencies (has issues)" \
+            --body "$(cat pr-body.txt)
 
-            ### Specific peer conflicts:
-            \`\`\`
-            $(cat peer-conflicts.log)
-            \`\`\`
-            "
-          fi
+            ⚠️ This PR has some issues that need to be resolved. See #$ISSUE_NUMBER for details." \
+            --base main \
+            --head ${{ env.BRANCH_NAME }} \
+            --draft
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          ISSUE_BODY="${ISSUE_BODY}
-          Please review the logs and take appropriate action to resolve the issue."
+      - name: Create PR for successful updates
+        if: env.EXISTING_PR != 'true' && env.HAS_CHANGES == 'true' && env.INSTALL_FAILED != 'true' && env.BUILD_FAILED != 'true'
+        run: |
+          # Commit changes
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json pnpm-lock.yaml apps/web/package.json
+          git commit -m "deps: Update dependencies"
+          git push origin ${{ env.BRANCH_NAME }}
 
-          gh issue create --repo ${{ github.repository }} --title "$TITLE" --body "$ISSUE_BODY"
+          # Create PR
+          gh pr create --title "deps: Update dependencies" \
+            --body "$(cat pr-body.txt)" \
+            --base main \
+            --head ${{ env.BRANCH_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
