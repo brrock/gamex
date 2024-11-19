@@ -10,8 +10,8 @@
     "prettier": "prettier --w ."
   },
   "dependencies": {
-    "@clerk/clerk-sdk-node": "^5.0.65",
-    "@clerk/nextjs": "^6.3.4",
+    "@clerk/clerk-sdk-node": "^5.0.66",
+    "@clerk/nextjs": "^6.4.0",
     "@prisma/client": "^5.22.0",
     "@prisma/nextjs-monorepo-workaround-plugin": "^5.22.0",
     "@radix-ui/react-dialog": "^1.1.2",
