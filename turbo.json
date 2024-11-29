@@ -5,7 +5,9 @@
     "DATABASE_URL",
     "WEBHOOK_SECRET",
     "ADMIN_CLERK_ID",
-    "REDIS_URL"
+    "REDIS_URL",
+    "UPSTASH_REDIS_REST_URL",
+    "UPSTASH_REDIS_REST_TOKEN"
   ],
   "tasks": {
     "build": {
@@ -17,7 +19,9 @@
         "WEBHOOK_SECRET",
         "ADMIN_CLERK_ID",
         "REDIS_URL",
-        "CLERK_PUBLISHABLE_KEY"
+        "CLERK_PUBLISHABLE_KEY",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN"
       ]
     },
     "lint": {},
@@ -39,7 +43,9 @@
         "WEBHOOK_SECRET",
         "ADMIN_CLERK_ID",
         "REDIS_URL",
-        "DIRECT_URL"
+        "DIRECT_URL",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN"
       ]
     },
     "gamex#build": {
@@ -50,7 +56,9 @@
         "WEBHOOK_SECRET",
         "ADMIN_CLERK_ID",
         "REDIS_URL",
-        "DIRECT_URL"
+        "DIRECT_URL",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN"
       ]
     },
     "prettier": {

@@ -1,10 +1,11 @@
 // packages/api/src/routes/playerdata.ts
 import { createRouter } from "../router";
 import prisma from "../db";
-import Redis from "ioredis";
+import { Redis } from '@upstash/redis';
 import { createHmac } from "crypto";
 import { z } from "zod";
 import type { Prisma, Game, PlayerData } from "database";
+
 // Validation schemas
 const PlayerDataSchema = z.object({
   userId: z.string(),
@@ -13,6 +14,7 @@ const PlayerDataSchema = z.object({
   signature: z.string(),
   timestamp: z.string(),
 });
+
 // Types
 interface QueueItem {
   userId: string;
@@ -30,12 +32,9 @@ const BATCH_SIZE = 100;
 const PROCESS_INTERVAL = 5000; // 5 seconds
 
 // Initialize Redis client
-const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379", {
-  maxRetriesPerRequest: 3,
-  retryStrategy: (times) => {
-    const delay = Math.min(times * 50, 2000);
-    return delay;
-  },
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
 });
 
 // Type guard for QueueItem
@@ -103,7 +102,7 @@ class PlayerDataQueue {
   }
 
   static async popItem(): Promise<QueueItem | null> {
-    const item = await redis.rpop(QUEUE_KEY);
+    const item = await redis.rpop<string>(QUEUE_KEY);
     if (!item) return null;
 
     try {
@@ -120,23 +119,37 @@ class PlayerDataQueue {
   }
 
   static async processBatch(batchSize: number): Promise<QueueItem[]> {
-    const items: QueueItem[] = [];
-
+    // Using pipeline for better performance
+    const pipeline = redis.pipeline();
     for (let i = 0; i < batchSize; i++) {
-      const item = await this.popItem();
-      if (!item) break;
-      items.push(item);
+      pipeline.rpop<string>(QUEUE_KEY);
+    }
+    
+    const results = await pipeline.exec<string[]>();
+    const items: QueueItem[] = [];
+    
+    for (const result of results) {
+      if (!result) continue;
+      
+      try {
+        const parsed = JSON.parse(result);
+        if (isQueueItem(parsed)) {
+          items.push(parsed);
+        }
+      } catch (error) {
+        console.error("Error parsing queue item:", error);
+      }
     }
 
     return items;
   }
 
   static async returnItemsToQueue(items: QueueItem[]): Promise<void> {
-    const multi = redis.multi();
+    const pipeline = redis.pipeline();
     items.forEach((item) => {
-      multi.lpush(QUEUE_KEY, JSON.stringify(item));
+      pipeline.lpush(QUEUE_KEY, JSON.stringify(item));
     });
-    await multi.exec();
+    await pipeline.exec();
   }
 }
 
@@ -182,15 +195,6 @@ async function processQueue(): Promise<void> {
     }
   }
 }
-
-// Start queue processor
-const queueInterval = setInterval(processQueue, PROCESS_INTERVAL);
-
-// Ensure cleanup on application shutdown
-process.on("SIGTERM", () => {
-  clearInterval(queueInterval);
-  redis.disconnect();
-});
 
 // Create and configure router
 const router = createRouter()
