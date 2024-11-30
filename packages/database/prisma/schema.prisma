@@ -27,13 +27,16 @@ enum Role {
 }
 
 model Game {
-    id        String   @unique @default(cuid())
-    createdBy String
-    data      Json
-    imageUrl  String
-    updatedAt DateTime @updatedAt
-    createdAt DateTime @default(now())
-    secret String @unique @default(cuid())
+    id          String   @unique @default(cuid())
+    createdBy   String
+    data        Json
+    imageUrl    String
+    updatedAt   DateTime @updatedAt
+    createdAt   DateTime @default(now())
+    secret      String   @unique @default(cuid())
+    title       String
+    description String
+    tags        String[]
 }
 
 model PlayerData {
@@ -41,5 +44,6 @@ model PlayerData {
     data   Json
     game   String
     id     String @default(cuid())
+
     @@unique([userId, game])
 }

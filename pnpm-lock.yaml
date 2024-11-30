@@ -219,15 +219,15 @@ importers:
         specifier: ^5.22.0
         version: 5.22.0(@neondatabase/serverless@0.10.3)
       '@prisma/client':
-        specifier: ^5.22.0
-        version: 5.22.0(prisma@5.22.0)
+        specifier: ^6.0.0
+        version: 6.0.0(prisma@6.0.0)
     devDependencies:
       '@types/node':
         specifier: ^22.9.0
         version: 22.9.0
       prisma:
-        specifier: ^5.22.0
-        version: 5.22.0
+        specifier: ^6.0.0
+        version: 6.0.0
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
@@ -256,6 +256,12 @@ importers:
 
   packages/ui:
     dependencies:
+      '@prisma/client':
+        specifier: ^6.0.0
+        version: 6.0.0(prisma@6.0.0)
+      '@radix-ui/react-checkbox':
+        specifier: ^1.1.2
+        version: 1.1.2(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1))(react@19.0.0-rc.1)(types-react-dom@19.0.0-alpha.3)(types-react@19.0.0-alpha.3)
       '@radix-ui/react-dialog':
         specifier: ^1.1.2
         version: 1.1.2(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1))(react@19.0.0-rc.1)(types-react-dom@19.0.0-alpha.3)(types-react@19.0.0-alpha.3)
@@ -1187,11 +1193,23 @@ packages:
       prisma:
         optional: true
 
+  '@prisma/client@6.0.0':
+    resolution: {integrity: sha512-tOBhG35ozqZ/5Y6B0TNOa6cwULUW8ijXqBXcgb12bfozqf6eGMyGs+jphywCsj6uojv5lAZZnxVSoLMVebIP+g==}
+    engines: {node: '>=18.18'}
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+
   '@prisma/debug@5.21.1':
     resolution: {integrity: sha512-uY8SAhcnORhvgtOrNdvWS98Aq/nkQ9QDUxrWAgW8XrCZaI3j2X7zb7Xe6GQSh6xSesKffFbFlkw0c2luHQviZA==}
 
   '@prisma/debug@5.22.0':
     resolution: {integrity: sha512-AUt44v3YJeggO2ZU5BkXI7M4hu9BF2zzH2iF2V5pyXT/lRTyWiElZ7It+bRH1EshoMRxHgpYg4VB6rCM+mG5jQ==}
+
+  '@prisma/debug@6.0.0':
+    resolution: {integrity: sha512-eUjoNThlDXdyJ1iQ2d7U6aTVwm59EwvODb5zFVNJEokNoSiQmiYWNzZIwZyDmZ+j51j42/0iTaHIJ4/aZPKFRg==}
 
   '@prisma/driver-adapter-utils@5.22.0':
     resolution: {integrity: sha512-Y8msGZl9unmVflXoqdxTejv99UD02Gp4VoIvkyw+YxNUIj7nRz35O7yf5D87qNmTiPMGCS1WjUucG9ZuNq8+tw==}
@@ -1202,11 +1220,17 @@ packages:
   '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2':
     resolution: {integrity: sha512-2PTmxFR2yHW/eB3uqWtcgRcgAbG1rwG9ZriSvQw+nnb7c4uCr3RAcGMb6/zfE88SKlC1Nj2ziUvc96Z379mHgQ==}
 
+  '@prisma/engines-version@5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e':
+    resolution: {integrity: sha512-JmIds0Q2/vsOmnuTJYxY4LE+sajqjYKhLtdOT6y4imojqv5d/aeVEfbBGC74t8Be1uSp0OP8lxIj2OqoKbLsfQ==}
+
   '@prisma/engines@5.21.1':
     resolution: {integrity: sha512-hGVTldUkIkTwoV8//hmnAAiAchi4oMEKD3aW5H2RrnI50tTdwza7VQbTTAyN3OIHWlK5DVg6xV7X8N/9dtOydA==}
 
   '@prisma/engines@5.22.0':
     resolution: {integrity: sha512-UNjfslWhAt06kVL3CjkuYpHAWSO6L4kDCVPegV6itt7nD1kSJavd3vhgAEhjglLJJKEdJ7oIqDJ+yHk6qO8gPA==}
+
+  '@prisma/engines@6.0.0':
+    resolution: {integrity: sha512-ZZCVP3q22ifN6Ex6C8RIcTDBlRtMJS2H1ljV0knCiWNGArvvkEbE88W3uDdq/l4+UvyvHpGzdf9ZsCWSQR7ZQQ==}
 
   '@prisma/fetch-engine@5.21.1':
     resolution: {integrity: sha512-70S31vgpCGcp9J+mh/wHtLCkVezLUqe/fGWk3J3JWZIN7prdYSlr1C0niaWUyNK2VflLXYi8kMjAmSxUVq6WGQ==}
@@ -1214,11 +1238,17 @@ packages:
   '@prisma/fetch-engine@5.22.0':
     resolution: {integrity: sha512-bkrD/Mc2fSvkQBV5EpoFcZ87AvOgDxbG99488a5cexp5Ccny+UM6MAe/UFkUC0wLYD9+9befNOqGiIJhhq+HbA==}
 
+  '@prisma/fetch-engine@6.0.0':
+    resolution: {integrity: sha512-j2m+iO5RDPRI7SUc7sHo8wX7SA4iTkJ+18Sxch8KinQM46YiCQD1iXKN6qU79C1Fliw5Bw/qDyTHaTsa3JMerA==}
+
   '@prisma/get-platform@5.21.1':
     resolution: {integrity: sha512-sRxjL3Igst3ct+e8ya/x//cDXmpLbZQ5vfps2N4tWl4VGKQAmym77C/IG/psSMsQKszc8uFC/q1dgmKFLUgXZQ==}
 
   '@prisma/get-platform@5.22.0':
     resolution: {integrity: sha512-pHhpQdr1UPFpt+zFfnPazhulaZYCUqeIcPpJViYoq9R+D/yw4fjE+CtnsnKzPYm0ddUbeXUzjGVGIRVgPDCk4Q==}
+
+  '@prisma/get-platform@6.0.0':
+    resolution: {integrity: sha512-PS6nYyIm9g8C03E4y7LknOfdCw/t2KyEJxntMPQHQZCOUgOpF82Ma60mdlOD08w90I3fjLiZZ0+MadenR3naDQ==}
 
   '@prisma/nextjs-monorepo-workaround-plugin@5.22.0':
     resolution: {integrity: sha512-wuKp7FqhETHP2MJJu5y//ac83/EpDpoupcjlmp/Ijv3fnG576EIxY4SU4j24xXPIBOTuApkCk4RkgonkeAOXuQ==}
@@ -1231,6 +1261,19 @@ packages:
 
   '@radix-ui/react-arrow@1.1.0':
     resolution: {integrity: sha512-FmlW1rCg7hBpEBwFbjHwCW6AmWLQM6g/v0Sn8XbP9NvmSZ2San1FpQeyPtufzOMSIx7Y4dzjlHoifhp+7NkZhw==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+  '@radix-ui/react-checkbox@1.1.2':
+    resolution: {integrity: sha512-/i0fl686zaJbDQLNKrkCbMyDm6FQMt4jg323k7HuqitoANm9sE23Ql8yOK3Wusk34HSLKDChhMux05FnP6KUkw==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -3486,6 +3529,11 @@ packages:
     engines: {node: '>=16.13'}
     hasBin: true
 
+  prisma@6.0.0:
+    resolution: {integrity: sha512-RX7KtbW7IoEByf7MR32JK1PkVYLVYFqeODTtiIX3cqekq1aKdsF3Eud4zp2sUShMLjvdb5Jow0LbUjRq5LVxPw==}
+    engines: {node: '>=18.18'}
+    hasBin: true
+
   progress@2.0.3:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
@@ -4831,9 +4879,15 @@ snapshots:
     optionalDependencies:
       prisma: 5.22.0
 
+  '@prisma/client@6.0.0(prisma@6.0.0)':
+    optionalDependencies:
+      prisma: 6.0.0
+
   '@prisma/debug@5.21.1': {}
 
   '@prisma/debug@5.22.0': {}
+
+  '@prisma/debug@6.0.0': {}
 
   '@prisma/driver-adapter-utils@5.22.0':
     dependencies:
@@ -4842,6 +4896,8 @@ snapshots:
   '@prisma/engines-version@5.21.1-1.bf0e5e8a04cada8225617067eaa03d041e2bba36': {}
 
   '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2': {}
+
+  '@prisma/engines-version@5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e': {}
 
   '@prisma/engines@5.21.1':
     dependencies:
@@ -4857,6 +4913,13 @@ snapshots:
       '@prisma/fetch-engine': 5.22.0
       '@prisma/get-platform': 5.22.0
 
+  '@prisma/engines@6.0.0':
+    dependencies:
+      '@prisma/debug': 6.0.0
+      '@prisma/engines-version': 5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e
+      '@prisma/fetch-engine': 6.0.0
+      '@prisma/get-platform': 6.0.0
+
   '@prisma/fetch-engine@5.21.1':
     dependencies:
       '@prisma/debug': 5.21.1
@@ -4869,6 +4932,12 @@ snapshots:
       '@prisma/engines-version': 5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2
       '@prisma/get-platform': 5.22.0
 
+  '@prisma/fetch-engine@6.0.0':
+    dependencies:
+      '@prisma/debug': 6.0.0
+      '@prisma/engines-version': 5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e
+      '@prisma/get-platform': 6.0.0
+
   '@prisma/get-platform@5.21.1':
     dependencies:
       '@prisma/debug': 5.21.1
@@ -4876,6 +4945,10 @@ snapshots:
   '@prisma/get-platform@5.22.0':
     dependencies:
       '@prisma/debug': 5.22.0
+
+  '@prisma/get-platform@6.0.0':
+    dependencies:
+      '@prisma/debug': 6.0.0
 
   '@prisma/nextjs-monorepo-workaround-plugin@5.22.0': {}
 
@@ -4895,6 +4968,22 @@ snapshots:
   '@radix-ui/react-arrow@1.1.0(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1))(react@19.0.0-rc.1)(types-react-dom@19.0.0-alpha.3)(types-react@19.0.0-alpha.3)':
     dependencies:
       '@radix-ui/react-primitive': 2.0.0(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1))(react@19.0.0-rc.1)(types-react-dom@19.0.0-alpha.3)(types-react@19.0.0-alpha.3)
+      react: 19.0.0-rc.1
+      react-dom: 19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1)
+    optionalDependencies:
+      '@types/react': types-react@19.0.0-alpha.3
+      '@types/react-dom': types-react-dom@19.0.0-alpha.3
+
+  '@radix-ui/react-checkbox@1.1.2(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1))(react@19.0.0-rc.1)(types-react-dom@19.0.0-alpha.3)(types-react@19.0.0-alpha.3)':
+    dependencies:
+      '@radix-ui/primitive': 1.1.0
+      '@radix-ui/react-compose-refs': 1.1.0(react@19.0.0-rc.1)(types-react@19.0.0-alpha.3)
+      '@radix-ui/react-context': 1.1.1(react@19.0.0-rc.1)(types-react@19.0.0-alpha.3)
+      '@radix-ui/react-presence': 1.1.1(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1))(react@19.0.0-rc.1)(types-react-dom@19.0.0-alpha.3)(types-react@19.0.0-alpha.3)
+      '@radix-ui/react-primitive': 2.0.0(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1))(react@19.0.0-rc.1)(types-react-dom@19.0.0-alpha.3)(types-react@19.0.0-alpha.3)
+      '@radix-ui/react-use-controllable-state': 1.1.0(react@19.0.0-rc.1)(types-react@19.0.0-alpha.3)
+      '@radix-ui/react-use-previous': 1.1.0(react@19.0.0-rc.1)(types-react@19.0.0-alpha.3)
+      '@radix-ui/react-use-size': 1.1.0(react@19.0.0-rc.1)(types-react@19.0.0-alpha.3)
       react: 19.0.0-rc.1
       react-dom: 19.0.0-rc-69d4b800-20241021(react@19.0.0-rc.1)
     optionalDependencies:
@@ -7651,6 +7740,12 @@ snapshots:
   prisma@5.22.0:
     dependencies:
       '@prisma/engines': 5.22.0
+    optionalDependencies:
+      fsevents: 2.3.3
+
+  prisma@6.0.0:
+    dependencies:
+      '@prisma/engines': 6.0.0
     optionalDependencies:
       fsevents: 2.3.3
 

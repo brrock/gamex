@@ -7,17 +7,17 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "db:push": "prisma db push --skip-generate",
+    "db:push": "prisma db push ",
     "postinstall": "pnpx prisma generate"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.3",
     "@prisma/adapter-neon": "^5.22.0",
-    "@prisma/client": "^5.22.0"
+    "@prisma/client": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
-    "prisma": "^5.22.0",
+    "prisma": "^6.0.0",
     "typescript": "^5.6.3"
   }
 }

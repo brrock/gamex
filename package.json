@@ -9,7 +9,8 @@
     "start": "turbo start",
     "prettier": " turbo prettier",
     "ui": "pnpm --filter ui ui",
-    "ui:build": "pnpm --filter ui build"
+    "ui:build": "pnpm --filter ui build",
+    "db:push" : "pnpm --filter database db:push"
   },
   "keywords": [],
   "packageManager": "pnpm@12.3.0",
