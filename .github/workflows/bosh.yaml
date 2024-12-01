@@ -33,7 +33,7 @@ jobs:
         id: tests
         run: |
           echo "Running tests..."
-          exit 1  # Simulate failure
+          
         continue-on-error: true
 
       - name: Handle Notification
