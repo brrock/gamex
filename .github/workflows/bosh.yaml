@@ -16,7 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-     
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -32,7 +31,9 @@ jobs:
 
       - name: Run Tests
         id: tests
-        run: echo "hi"
+        run: |
+          echo "Running tests..."
+          exit 1  # Simulate failure
         continue-on-error: true
 
       - name: Handle Notification
@@ -41,7 +42,8 @@ jobs:
           git clone http://192.168.0.35:3000/brrock/gitemailthinggamex.git
           cd gitemailthinggamex
           bun install
-          if [[ "${{ steps.tests.outcome }}" == "failure" then
+
+          if [ "${{ steps.tests.outcome }}" = "failure" ]; then
             bun run sendfailed
           else
             bun run sendsuccess
