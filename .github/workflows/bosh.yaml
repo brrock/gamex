@@ -17,12 +17,16 @@ jobs:
           fetch-depth: 0
           ssh-key: ${{ secrets.DEPLOY_KEY }}
           
-      # Setup SSH for the notification repo
-      - name: Configure Git server SSH
+      # Setup SSH for the Git server access
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      # Add Git server to known hosts
+      - name: Configure Git server
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 192.168.0.35 >> ~/.ssh/known_hosts
           
       - name: Install pnpm
@@ -40,7 +44,7 @@ jobs:
         
       - name: Run Tests
         id: tests
-        run: echo "not implemted"
+        run: pnpm test
         continue-on-error: true
         
       - name: Run Prettier
@@ -59,8 +63,6 @@ jobs:
           
       - name: Handle Notification
         if: steps.tests.outcome == 'failure' || steps.prettier.outcome == 'failure'
-        env:
-          GIT_SSH_COMMAND: "ssh -i ~/.ssh/deploy_key"
         run: |
           cd /tmp
           git clone git@192.168.0.35:brrock/gitemailthinggamex.git
