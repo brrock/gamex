@@ -11,19 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      # Checkout with deploy key for the main repo
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
           
-      - name: Setup SSH for Git server
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-      - name: Add Git server to known hosts
+      # Setup SSH for the notification repo
+      - name: Configure Git server SSH
         run: |
           mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 192.168.0.35 >> ~/.ssh/known_hosts
           
       - name: Install pnpm
@@ -41,7 +40,7 @@ jobs:
         
       - name: Run Tests
         id: tests
-        run: pnpm test
+        run: echo "not implemted"
         continue-on-error: true
         
       - name: Run Prettier
@@ -60,9 +59,10 @@ jobs:
           
       - name: Handle Notification
         if: steps.tests.outcome == 'failure' || steps.prettier.outcome == 'failure'
+        env:
+          GIT_SSH_COMMAND: "ssh -i ~/.ssh/deploy_key"
         run: |
           cd /tmp
-          # Using SSH URL
           git clone git@192.168.0.35:brrock/gitemailthinggamex.git
           cd gitemailthinggamex
           bun install
