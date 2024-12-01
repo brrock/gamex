@@ -15,20 +15,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
           
       # Setup SSH for the Git server access
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-      # Add Git server to known hosts
-      - name: Configure Git server
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H 192.168.0.35 >> ~/.ssh/known_hosts
-          
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -65,7 +53,7 @@ jobs:
         if: steps.tests.outcome == 'failure' || steps.prettier.outcome == 'failure'
         run: |
           cd /tmp
-          git clone git@192.168.0.35:brrock/gitemailthinggamex.git
+          git clone http://192.168.0.35:3000/brrock/gitemailthinggamex.git
           cd gitemailthinggamex
           bun install
           if [[ "${{ steps.tests.outcome }}" == "failure" || "${{ steps.prettier.outcome }}" == "failure" ]]; then
