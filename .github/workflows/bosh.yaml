@@ -36,7 +36,6 @@ jobs:
         continue-on-error: true
 
       - name: Handle Notification
-        if: steps.tests.outcome == 'failure'
         run: |
           cd /tmp
           git clone http://192.168.0.35:3000/brrock/gitemailthinggamex.git
