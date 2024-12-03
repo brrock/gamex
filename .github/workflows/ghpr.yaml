@@ -22,7 +22,7 @@ jobs:
         run: |
           curl -sS https://webi.sh/gh | sh
           source ~/.config/envman/PATH.env
-          gh auth login --with-token <<< "${{ secrets.GH_TOKEN }}"
+          gh auth login --with-token <<< "${{ secrets.GH_TOKEN }}" && gh auth status && echo done
       
       - name: Configure git
         run: |
@@ -65,7 +65,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-          
+          source ~/.config/envman/PATH.env
           # Check if PR already exists
           existing_pr=$(gh pr list \
             --repo brrock/gamex \
