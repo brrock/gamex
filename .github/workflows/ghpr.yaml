@@ -1,0 +1,66 @@
+name: Create GitHub PR from Gitea
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gh_pr:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
+      
+      - name: Setup GitHub CLI
+        uses: actions4gh/setup-gh@v1
+        with:
+          gh-version: 'latest'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          
+          # Create .gitignore for GitHub-specific files if it doesn't exist
+          echo ".github/workflows/ghpr.yaml" >> .gitignore
+          echo ".github/workflows/bosh.yaml" >> .gitignore
+      
+      - name: Add GitHub remote and push
+        run: |
+          # Remove the workflow files from git tracking
+          git rm --cached .github/workflows/ghpr.yaml || true
+          git rm --cached .github/workflows/bosh.yaml || true
+          
+          # Add GitHub remote
+          git remote add github https://github.com/brrock/gamex.git
+          
+          # Create and switch to canary branch
+          git checkout -b canary
+          
+          # Commit the gitignore changes if any
+          git add .gitignore
+          git commit -m "chore: update gitignore for workflow files" || true
+          
+          # Push to GitHub repository
+          git push github canary --force
+      
+      - name: Create PR
+        run: |
+          gh pr create \
+            --repo ${{ secrets.GH_REPOSITORY }} \
+            --base main \
+            --head canary \
+            --title "feat: sync changes from Gitea" \
+            --body "## Automated PR from Gitea
+
+            This PR contains the latest changes from Gitea repository.
+            
+            Please review the changes carefully before merging."
+      
+      - name: Cleanup
+        if: always()
+        run: |
+          git checkout main
+          git branch -D canary
