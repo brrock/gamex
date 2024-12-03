@@ -21,6 +21,7 @@ jobs:
       - name: Install GitHub CLI
         run: |
           curl -sS https://webi.sh/gh | sh
+          source .bashrc
           gh auth login --with-token <<< "${{ secrets.GH_TOKEN }}"
       
       - name: Configure git
