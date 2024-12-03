@@ -17,12 +17,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Full history for better sync
-      
-      - name: Setup GitHub CLI
-        uses: actions4gh/setup-gh@v1
-        with:
-          gh-version: 'latest'
-          token: ${{ secrets.GH_TOKEN }}  # Changed from GITHUB_TOKEN for cross-repo access
+
+      - name: Install GitHub CLI
+        run: |
+          curl -sS https://webi.sh/gh | sh
+          gh auth login --with-token <<< "${{ secrets.GH_TOKEN }}"
       
       - name: Configure git
         run: |
@@ -49,15 +48,16 @@ jobs:
           # Add GitHub remote using token for authentication
           git remote add github https://${GH_TOKEN}@github.com/brrock/gamex.git
           
-          # Create and checkout sync branch
-          git checkout -b gitea-sync-$(date +%Y%m%d-%H%M%S)
+          # Create and checkout canary branch
+          BRANCH_NAME=canary
+          git checkout -b $BRANCH_NAME
           
           # Stage and commit gitignore changes
           git add .gitignore
           git commit -m "chore: update gitignore for workflow files" || true
           
           # Push to GitHub
-          git push github gitea-sync-$(date +%Y%m%d-%H%M%S) --force
+          git push github $BRANCH_NAME --force
       
       - name: Create Pull Request
         env:
