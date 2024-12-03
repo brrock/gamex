@@ -38,5 +38,6 @@ prisma/migrations
 **/**/app/test
 .turbo
 packages/ui/dist
-packages/**/dist.github/workflows/ghpr.yaml
+packages/**/dist
+.github/workflows/ghpr.yaml
 .github/workflows/bosh.yaml
