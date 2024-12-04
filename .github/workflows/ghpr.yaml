@@ -91,10 +91,3 @@ jobs:
           else
             echo "PR already exists with number #$existing_pr"
           fi
-      
-      - name: Cleanup
-        if: always()
-        run: |
-          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-          git checkout main
-          git branch -D $BRANCH_NAME || true
