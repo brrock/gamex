@@ -35,8 +35,8 @@ jobs:
           fi
           
           # Ensure workflow files are ignored
-          grep -qxF '.github/workflows/ghpr.yaml' .gitignore || echo '.github/workflows/ghpr.yaml' >> .gitignore
-          grep -qxF '.github/workflows/bosh.yaml' .gitignore || echo '.github/workflows/bosh.yaml' >> .gitignore
+          grep -qxF '.github/workflows/ghpr.yaml' .gitignore || echo '' >> .gitignore && echo '.github/workflows/ghpr.yaml' >> .gitignore
+          grep -qxF '.github/workflows/bosh.yaml' .gitignore || echo '' >> .gitignore && echo '.github/workflows/bosh.yaml' >> .gitignore
       
       - name: Add GitHub remote and push
         env:
