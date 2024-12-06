@@ -1,7 +1,8 @@
 {
   "name": "clerk-auth-middleware",
   "version": "2.0.0",
-  "description": "A third-party Clerk auth middleware for Hono", "type": "module",
+  "description": "A third-party Clerk auth middleware for Hono",
+  "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,7 +10,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup ./src/index.ts --format esm,cjs --dts"
+    "build": "tsup ./src/index.ts --format esm,cjs --dts",
+    "lint": "eslint .",
+    "prettier": "prettier --w ."
   },
   "exports": {
     ".": {
@@ -31,8 +34,11 @@
   "devDependencies": {
     "@clerk/backend": "^1.0.0",
     "@types/react": "^18",
+    "configs": "workspace:*",
+    "eslint": "^9.16.0",
     "hono": "^3.11.7",
     "node-fetch-native": "^1.4.0",
+    "prettier": "^3.3.3",
     "react": "^18.2.0",
     "tsup": "^8.0.1"
   }

@@ -1,7 +1,7 @@
 // packages/api/src/routes/playerdata.ts
 import { createRouter } from "../router";
 import prisma from "../db";
-import { Redis } from '@upstash/redis';
+import { Redis } from "@upstash/redis";
 import { createHmac } from "crypto";
 import { z } from "zod";
 import type { Prisma, Game, PlayerData } from "database";
@@ -56,7 +56,7 @@ function validateSignature(
   payload: string,
   timestamp: string,
   signature: string,
-  gameSecret: string
+  gameSecret: string,
 ): boolean {
   const data = `${payload}:${timestamp}`;
   const expectedSignature = createHmac("sha256", gameSecret)
@@ -74,7 +74,7 @@ async function validateGameAuth(c: any, next: () => Promise<void>) {
   if (!gameId || !timestamp || !signature) {
     return c.json(
       { success: false, error: "Missing authentication headers" },
-      401
+      401,
     );
   }
 
@@ -124,13 +124,13 @@ class PlayerDataQueue {
     for (let i = 0; i < batchSize; i++) {
       pipeline.rpop<string>(QUEUE_KEY);
     }
-    
+
     const results = await pipeline.exec<string[]>();
     const items: QueueItem[] = [];
-    
+
     for (const result of results) {
       if (!result) continue;
-      
+
       try {
         const parsed = JSON.parse(result);
         if (isQueueItem(parsed)) {
@@ -219,7 +219,7 @@ const router = createRouter()
           message: "Player data queued for processing",
           tempId: queueItem.tempId,
         },
-        202
+        202,
       );
     } catch (error) {
       if (error instanceof z.ZodError) {

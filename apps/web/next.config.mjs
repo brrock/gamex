@@ -3,7 +3,7 @@ import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 
 const nextConfig = {
   transpilePackages: ["ui", "api", "database"],
-  output: "standalone", 
+  output: "standalone",
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -12,7 +12,7 @@ const nextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()]
+      config.plugins = [...config.plugins, new PrismaPlugin()];
     }
 
     config.resolve = {
@@ -23,9 +23,8 @@ const nextConfig = {
         tls: false,
         net: false,
         crypto: false,
-
       },
-    }
+    };
 
     return config;
   },

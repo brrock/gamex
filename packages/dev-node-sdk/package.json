@@ -8,15 +8,18 @@
   ],
   "scripts": {
     "build": "tsup ",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "prettier": "prettier --w ."
   },
   "author": "Brrock",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.0",
-    "eslint": "^9",
+    "eslint": "^9.14.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "configs": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

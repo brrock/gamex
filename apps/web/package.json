@@ -40,7 +40,8 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "turbo": "^2.3.0",
-    "ui": "workspace:*"
+    "ui": "workspace:*",
+    "configs": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",

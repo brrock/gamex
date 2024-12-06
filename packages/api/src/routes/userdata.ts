@@ -16,6 +16,6 @@ const router = createRouter()
     return c.json({
       user,
     });
-  })
+  });
 
 export default router;
