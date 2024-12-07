@@ -26,7 +26,7 @@ const nextConfig = {
       config.optimization = {
         ...config.optimization,
         // Ensure proper tree shaking
-        usedExports: true,
+        usedExports: false,
         // Optimize chunks for edge
         splitChunks: {
           chunks: 'all',
