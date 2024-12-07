@@ -21,7 +21,6 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
     "@radix-ui/react-toast": "^1.2.2",
-    "api": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "database": "workspace:*",
@@ -40,6 +39,7 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "turbo": "^2.3.0",
+    "api": "workspace:*",
     "ui": "workspace:*",
     "configs": "workspace:*",
     "clerk-auth-middleware": "workspace:*"
