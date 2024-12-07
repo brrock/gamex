@@ -42,7 +42,7 @@
     "turbo": "^2.3.0",
     "ui": "workspace:*",
     "configs": "workspace:*",
-    "clerk-hono-middleware": "workspace:*"
+    "clerk-auth-middleware": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",
