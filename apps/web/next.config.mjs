@@ -11,29 +11,59 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   experimental: {
-    // Optimize packages
-    // Enable edge runtime optimizations
     serverActions: {
-      bodySizeLimit: '2mb' // Adjust based on needs
+      bodySizeLimit: '2mb'
     }
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
+  webpack: (config, { isServer, dev }) => {
+    if (isServer && !dev) {
       // Add Prisma plugin
       config.plugins = [...config.plugins, new PrismaPlugin()];
       
       // Edge function specific optimizations
       config.optimization = {
         ...config.optimization,
-        // Ensure proper tree shaking
-        usedExports: false,
-        // Optimize chunks for edge
+        minimize: true,
+        minimizer: [
+          ...config.optimization.minimizer || [],
+          new TerserPlugin({
+            terserOptions: {
+              compress: {
+                unused: true,
+                dead_code: true,
+                passes: 2,
+              },
+              mangle: true,
+            },
+          }),
+        ],
+        // Disable used exports for better tree shaking
+        usedExports: true,
+        // Aggressive chunk splitting for edge
         splitChunks: {
           chunks: 'all',
-          minSize: 10000,
-          maxSize: 40000
-        }
+          minSize: 5000,
+          maxSize: 25000,
+          minChunks: 1,
+          maxAsyncRequests: 30,
+          maxInitialRequests: 30,
+          cacheGroups: {
+            defaultVendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -10,
+              reuseExistingChunk: true,
+            },
+            default: {
+              minChunks: 2,
+              priority: -20,
+              reuseExistingChunk: true,
+            },
+          },
+        },
       };
+
+      // Enable module concatenation
+      config.optimization.concatenateModules = true;
     }
 
     // Add fallback configurations
@@ -45,6 +75,9 @@ const nextConfig = {
         tls: false,
         net: false,
         crypto: false,
+        fs: false,
+        path: false,
+        os: false,
       },
     };
 
