@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
+import path from 'path';
 
 const nextConfig = {
   transpilePackages: ["ui", "api", "database"],
@@ -16,59 +17,61 @@ const nextConfig = {
     }
   },
   webpack: (config, { isServer, dev }) => {
-    if (isServer && !dev) {
-      // Add Prisma plugin
+    if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()];
+
+      // Check if building for edge runtime
+      const isEdge = config.name === 'edge';
       
-      // Edge function specific optimizations
-      config.optimization = {
-        ...config.optimization,
-        minimize: true,
-        minimizer: [
-          ...config.optimization.minimizer || [],
-          new TerserPlugin({
-            terserOptions: {
-              compress: {
-                unused: true,
-                dead_code: true,
-                passes: 2,
+      if (isEdge) {
+        // Specific optimizations for edge bundles
+        config.optimization = {
+          ...config.optimization,
+          minimize: true,
+          usedExports: true,
+          sideEffects: true,
+          concatenateModules: true,
+          splitChunks: {
+            chunks: 'all',
+            minSize: 5000,
+            maxSize: 25000,
+            cacheGroups: {
+              default: false,
+              defaultVendors: false,
+              // Special handling for the api package
+              api: {
+                test: /[\\/]packages[\\/]api[\\/]/,
+                name: 'api-chunk',
+                priority: 20,
+                reuseExistingChunk: true,
+                enforce: true
               },
-              mangle: true,
-            },
-          }),
-        ],
-        // Disable used exports for better tree shaking
-        usedExports: true,
-        // Aggressive chunk splitting for edge
-        splitChunks: {
-          chunks: 'all',
-          minSize: 5000,
-          maxSize: 25000,
-          minChunks: 1,
-          maxAsyncRequests: 30,
-          maxInitialRequests: 30,
-          cacheGroups: {
-            defaultVendors: {
-              test: /[\\/]node_modules[\\/]/,
-              priority: -10,
-              reuseExistingChunk: true,
-            },
-            default: {
-              minChunks: 2,
-              priority: -20,
-              reuseExistingChunk: true,
             },
           },
-        },
-      };
+        };
 
-      // Enable module concatenation
-      config.optimization.concatenateModules = true;
+        // Add special handling for the api package
+        config.module = {
+          ...config.module,
+          rules: [
+            ...config.module.rules,
+            {
+              test: /[\\/]packages[\\/]api[\\/]/,
+              sideEffects: false,
+            }
+          ]
+        };
+      }
     }
 
-    // Add fallback configurations
+    // Enhanced module resolution
     config.resolve = {
       ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        // Explicitly alias the api package
+        api: path.resolve(process.cwd(), 'packages/api/src'),
+      },
       fallback: {
         ...config.resolve.fallback,
         stream: false,
