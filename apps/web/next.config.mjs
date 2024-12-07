@@ -12,7 +12,6 @@ const nextConfig = {
   },
   experimental: {
     // Optimize packages
-    optimizePackageImports: ['api'],
     // Enable edge runtime optimizations
     serverActions: {
       bodySizeLimit: '2mb' // Adjust based on needs
