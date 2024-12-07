@@ -9,20 +9,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   webpack: (config, { isServer }) => {
-    if (isServer) {
-      if (config.name === 'edge') {
-        // Optimize for edge
-        config.optimization = {
-          ...config.optimization,
-          minimize: true,
-          splitChunks: {
-            chunks: 'all',
-            minSize: 5000,
-            maxSize: 40000,
-          }
-        };
-      }
-    }
+   
 
     // Add Node polyfills
     config.resolve.fallback = {
