@@ -1,0 +1,21 @@
+{
+  "name": "configs",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    "./eslint": "./eslint.js",
+    "./next-eslint": "./next-eslint.js",
+    "./prettier": "./prettier.js"
+  },
+
+  "devDependencies": {
+    "@vercel/style-guide": "^6.0.0",
+    "eslint": "^9.16.0",
+    "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "eslint-config-next": "15.0.3",
+    "eslint-config-turbo": "^2.3.0"
+  }
+}

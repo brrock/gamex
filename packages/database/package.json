@@ -8,7 +8,9 @@
   },
   "scripts": {
     "db:push": "prisma db push ",
-    "postinstall": "pnpx prisma generate"
+    "postinstall": "pnpx prisma generate",
+    "lint": "eslint .",
+    "prettier": "prettier --w ."
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.3",
@@ -17,7 +19,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
+    "eslint": "^9.16.0",
+    "prettier": "^3.3.3",
     "prisma": "^6.0.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "configs": "workspace:*"
   }
 }

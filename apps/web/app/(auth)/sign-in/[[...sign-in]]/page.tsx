@@ -1,5 +1,5 @@
 import { ModeToggle } from "ui/components/theme-toggle";
-import {Button} from "ui/components/ui/button";
+import { Button } from "ui/components/ui/button";
 import { SignIn } from "@clerk/nextjs";
 import { House } from "lucide-react";
 import Link from "next/link";

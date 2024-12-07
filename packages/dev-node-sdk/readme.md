@@ -39,8 +39,8 @@ pnpm add @gamex-official/gamex-node-sdk zod
 The GameX SDK provides a type-safe way to manage game data with built-in validation. Import the necessary dependencies:
 
 ```typescript
-import { GameSDK } from '@gamex-official/gamex-node-sdk';
-import { z } from 'zod';
+import { GameSDK } from "@gamex-official/gamex-node-sdk";
+import { z } from "zod";
 ```
 
 ## Schema Definition
@@ -51,19 +51,23 @@ Define your game's data structure using Zod schemas. This ensures type safety an
 
 ```typescript
 const PlayerProgressSchema = z.object({
-    level: z.number().min(1).max(100),
-    experience: z.number().nonnegative(),
-    inventory: z.array(z.object({
-        itemId: z.string(),
-        quantity: z.number().positive(),
-    })),
-    lastSaved: z.string().datetime(),
-    achievements: z.array(z.string()),
-    settings: z.object({
-        musicVolume: z.number().min(0).max(1),
-        sfxVolume: z.number().min(0).max(1),
-        difficulty: z.enum(['easy', 'normal', 'hard']),
-    }).optional(),
+  level: z.number().min(1).max(100),
+  experience: z.number().nonnegative(),
+  inventory: z.array(
+    z.object({
+      itemId: z.string(),
+      quantity: z.number().positive(),
+    }),
+  ),
+  lastSaved: z.string().datetime(),
+  achievements: z.array(z.string()),
+  settings: z
+    .object({
+      musicVolume: z.number().min(0).max(1),
+      sfxVolume: z.number().min(0).max(1),
+      difficulty: z.enum(["easy", "normal", "hard"]),
+    })
+    .optional(),
 });
 ```
 
@@ -72,32 +76,34 @@ const PlayerProgressSchema = z.object({
 ```typescript
 // Game State Schema
 const GameStateSchema = z.object({
-    currentLevel: z.string(),
-    playerPosition: z.object({
-        x: z.number(),
-        y: z.number(),
-        z: z.number()
+  currentLevel: z.string(),
+  playerPosition: z.object({
+    x: z.number(),
+    y: z.number(),
+    z: z.number(),
+  }),
+  activeQuests: z.array(
+    z.object({
+      id: z.string(),
+      progress: z.number().min(0).max(100),
+      completed: z.boolean(),
+      timeStarted: z.string().datetime(),
     }),
-    activeQuests: z.array(z.object({
-        id: z.string(),
-        progress: z.number().min(0).max(100),
-        completed: z.boolean(),
-        timeStarted: z.string().datetime()
-    })),
-    gameVersion: z.string(),
-    lastCheckpoint: z.string().optional()
+  ),
+  gameVersion: z.string(),
+  lastCheckpoint: z.string().optional(),
 });
 
 // Player Stats Schema
 const PlayerStatsSchema = z.object({
-    health: z.number().min(0).max(100),
-    mana: z.number().min(0).max(100),
-    attributes: z.object({
-        strength: z.number().min(1),
-        dexterity: z.number().min(1),
-        intelligence: z.number().min(1)
-    }),
-    skills: z.record(z.string(), z.number().min(0).max(100))
+  health: z.number().min(0).max(100),
+  mana: z.number().min(0).max(100),
+  attributes: z.object({
+    strength: z.number().min(1),
+    dexterity: z.number().min(1),
+    intelligence: z.number().min(1),
+  }),
+  skills: z.record(z.string(), z.number().min(0).max(100)),
 });
 ```
 
@@ -107,14 +113,14 @@ Initialize the SDK with your credentials:
 
 ```typescript
 const gameSDK = new GameSDK({
-    gameId: process.env.GAME_ID,
-    gameSecret: process.env.GAME_SECRET,
-    environment: process.env.NODE_ENV, // 'development' | 'production'
-    options: {
-        autoRetry: true,
-        maxRetries: 3,
-        timeout: 5000
-    }
+  gameId: process.env.GAME_ID,
+  gameSecret: process.env.GAME_SECRET,
+  environment: process.env.NODE_ENV, // 'development' | 'production'
+  options: {
+    autoRetry: true,
+    maxRetries: 3,
+    timeout: 5000,
+  },
 });
 
 const client = gameSDK.client(PlayerProgressSchema);
@@ -135,30 +141,30 @@ NEXT_PUBLIC_DEV_MODE=true  # Development mode
 
 ```typescript
 // hooks/useGameState.ts
-import { useEffect, useState } from 'react';
-import { GameSDK } from '@gamex-official/gamex-node-sdk';
+import { useEffect, useState } from "react";
+import { GameSDK } from "@gamex-official/gamex-node-sdk";
 
 export function useGameState<T>(client: GameSDK) {
-    const [gameData, setGameData] = useState<T | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+  const [gameData, setGameData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-    useEffect(() => {
-        async function fetchGameData() {
-            try {
-                const data = await client.getMyPlayerData<T>();
-                setGameData(data);
-            } catch (err) {
-                setError(err instanceof Error ? err : new Error('Unknown error'));
-            } finally {
-                setLoading(false);
-            }
-        }
+  useEffect(() => {
+    async function fetchGameData() {
+      try {
+        const data = await client.getMyPlayerData<T>();
+        setGameData(data);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error("Unknown error"));
+      } finally {
+        setLoading(false);
+      }
+    }
 
-        fetchGameData();
-    }, [client]);
+    fetchGameData();
+  }, [client]);
 
-    return { gameData, loading, error };
+  return { gameData, loading, error };
 }
 ```
 
@@ -304,31 +310,31 @@ export function useGameContext() {
 ```typescript
 // utils/errorHandling.ts
 export class GameError extends Error {
-    constructor(
-        message: string,
-        public code: string,
-        public details?: any
-    ) {
-        super(message);
-        this.name = 'GameError';
-    }
+  constructor(
+    message: string,
+    public code: string,
+    public details?: any,
+  ) {
+    super(message);
+    this.name = "GameError";
+  }
 }
 
 export function handleGameError(error: unknown) {
-    if (error instanceof GameSDKError) {
-        switch (error.code) {
-            case 'VALIDATION_ERROR':
-                console.error('Data validation failed:', error.validationErrors);
-                // Handle validation errors
-                break;
-            case 'NETWORK_ERROR':
-                console.error('Network error:', error.message);
-                // Handle network errors
-                break;
-            default:
-                console.error('Unknown error:', error);
-        }
+  if (error instanceof GameSDKError) {
+    switch (error.code) {
+      case "VALIDATION_ERROR":
+        console.error("Data validation failed:", error.validationErrors);
+        // Handle validation errors
+        break;
+      case "NETWORK_ERROR":
+        console.error("Network error:", error.message);
+        // Handle network errors
+        break;
+      default:
+        console.error("Unknown error:", error);
     }
+  }
 }
 ```
 
@@ -337,36 +343,39 @@ export function handleGameError(error: unknown) {
 ```typescript
 // types/game.ts
 type GameSDKOptions = {
-    autoRetry: boolean;
-    maxRetries: number;
-    timeout: number;
+  autoRetry: boolean;
+  maxRetries: number;
+  timeout: number;
 };
 
 type GameConfig = {
-    gameId: string;
-    gameSecret: string;
-    environment: 'development' | 'production';
-    options?: Partial<GameSDKOptions>;
+  gameId: string;
+  gameSecret: string;
+  environment: "development" | "production";
+  options?: Partial<GameSDKOptions>;
 };
 
 // Utility types
-type InventoryItem = z.infer<typeof PlayerProgressSchema>['inventory'][number];
-type GameSettings = z.infer<typeof PlayerProgressSchema>['settings'];
+type InventoryItem = z.infer<typeof PlayerProgressSchema>["inventory"][number];
+type GameSettings = z.infer<typeof PlayerProgressSchema>["settings"];
 ```
 
 ## Best Practices
 
 1. **State Management**
+
    - Use React Context for global game state
    - Implement proper data persistence strategies
    - Handle loading and error states appropriately
 
 2. **Performance**
+
    - Implement debouncing for frequent save operations
    - Use memoization for expensive calculations
    - Optimize render cycles with React.memo and useMemo
 
 3. **Security**
+
    - Never expose game secrets in client-side code
    - Implement proper validation for all user inputs
    - Use environment variables for sensitive data
@@ -381,16 +390,19 @@ type GameSettings = z.infer<typeof PlayerProgressSchema>['settings'];
 Common issues and solutions:
 
 1. **Validation Errors**
+
    - Check schema definitions match your data structure
    - Ensure all required fields are present
    - Verify data types and ranges
 
 2. **Network Issues**
+
    - Implement retry logic for failed requests
    - Add proper error handling for offline scenarios
    - Cache data locally when appropriate
 
 3. **State Management**
+
    - Use proper state initialization
    - Handle loading states correctly
    - Implement proper error boundaries

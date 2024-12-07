@@ -1,5 +1,6 @@
-const fs = require("fs");
-const path = require("path");
+/* eslint-disable turbo/no-undeclared-env-vars */
+const fs = require("node:fs");
+const path = require("node:path");
 
 const componentsDir = path.join(__dirname, "components");
 const indexPath = path.join(__dirname, "index.ts"); // Corrected to root directory
@@ -41,7 +42,7 @@ function generateExports() {
     .map((file) => {
       const relativePath = path
         .relative(__dirname, file)
-        .replace(/\\/g, "/")
+        .replaceAll("\\", "/")
         .replace(/\.tsx?$/, "");
       return `export * from './${relativePath}';`;
     })

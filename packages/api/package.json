@@ -11,7 +11,9 @@
   ],
   "scripts": {
     "dev": "NODE_ENV=development tsup --watch",
-    "build": "NODE_ENV=production tsup"
+    "build": "NODE_ENV=production tsup",
+    "lint": "eslint .",
+    "prettier": "prettier --w ."
   },
   "dependencies": {
     "@clerk/backend": "^1.16.0",
@@ -22,10 +24,13 @@
     "hono": "^4.6.8",
     "prisma": "^5.21.1",
     "tsx": "^4.19.2",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "configs": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.8.7",
+    "eslint": "^9.16.0",
+    "prettier": "^3.3.3",
     "tsup": "^6.7.0",
     "typescript": "^5.6.3"
   }

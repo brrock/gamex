@@ -1,9 +1,9 @@
 import { createRouter } from "../router";
-import { clerkMiddleware, getAuth } from 'clerk-auth-middleware';
-import type { Context } from 'hono';
+import { clerkMiddleware, getAuth } from "clerk-auth-middleware";
+import type { Context } from "hono";
 import { Env } from "hono";
 const secretKey = process.env.CLERK_SECRET_KEY!;
-const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!
+const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 console.log(publishableKey);
 const router = createRouter()
   .use("/", async (c: Context, next) => {

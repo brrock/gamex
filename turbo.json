@@ -24,7 +24,12 @@
         "UPSTASH_REDIS_REST_TOKEN"
       ]
     },
-    "lint": {},
+    "lint": {
+      "inputs": [
+        "**/*.{js,jsx,ts,tsx}",
+        ".eslintrc.*"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true
@@ -65,6 +70,7 @@
       "cache": false,
       "persistent": true
     }
+    
   },
   "globalDependencies": [".env", ".env.local", "NODE_ENV"],
   "ui": "tui"
