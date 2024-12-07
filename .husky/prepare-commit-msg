@@ -1,1 +1,1 @@
- npx cz --hook || true
+npx cz --hook || true
