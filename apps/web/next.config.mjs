@@ -11,10 +11,7 @@ const nextConfig = {
       'api',
     ],
     // Add performance optimizations
-    turbotrace: {
-      contextDirectory: __dirname,
-      processCwd: true,
-    },
+    
   },
 
   // Existing output configuration
