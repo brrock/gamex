@@ -30,11 +30,9 @@ const nextConfig = {
   swcMinify: true,
 
   // Webpack configuration
-  webpack: (config, { isServer }) => {
+  webpack: (config, { }) => {
     // Add Prisma plugin for server
-    if (isServer) {
-      config.plugins = [...(config.plugins || []), new PrismaPlugin()];
-    }
+   
 
     // Enhanced fallbacks
     config.resolve.fallback = {
