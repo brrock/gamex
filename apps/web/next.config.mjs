@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 
 const nextConfig = {
   // Preserve existing monorepo setup
@@ -7,22 +6,21 @@ const nextConfig = {
 
   experimental: {
     // Existing package imports
-    optimizePackageImports: [
-      'api',
-    ],
-    // Add performance optimizations
-    
+    optimizePackageImports: ['api'],
+    // Add modern optimizations
+    serverActions: true,
+    serverComponentsExternalPackages: [],
   },
 
   // Existing output configuration
   output: "standalone",
 
-  // Existing development configurations
+  // Development configurations
   typescript: {
-    ignoreBuildErrors: true
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true
+    ignoreDuringBuilds: true,
   },
 
   // Enable compression
@@ -31,44 +29,53 @@ const nextConfig = {
   // Enable SWC minification
   swcMinify: true,
 
-  // Combine and enhance webpack configuration
+  // Webpack configuration
   webpack: (config, { isServer }) => {
-    // Preserve Prisma plugin for server
+    // Add Prisma plugin for server
     if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()];
+      config.plugins = [...(config.plugins || []), new PrismaPlugin()];
     }
 
-    // Preserve existing fallbacks
-    config.resolve = {
-      ...config.resolve,
-      fallback: {
-        ...config.resolve.fallback,
-        stream: false,
-        tls: false,
-        net: false,
-        crypto: false,
-      },
+    // Enhanced fallbacks
+    config.resolve.fallback = {
+      ...(config.resolve.fallback || {}),
+      stream: false,
+      tls: false,
+      net: false,
+      crypto: false,
     };
 
-    // Add optimization configurations
+    // Optimized chunking configuration
     config.optimization = {
-      ...config.optimization,
+      ...(config.optimization || {}),
       minimize: true,
       splitChunks: {
         chunks: 'all',
         minSize: 20000,
         maxSize: 50000,
         minChunks: 1,
-      }
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      },
     };
 
     return config;
   },
 
-  // Minimize API response size
+  // API configuration
   api: {
     responseLimit: '1mb',
+    bodyParser: {
+      sizeLimit: '1mb',
+    },
   },
-};
+
+  // Add proper module imports
+  
 
 export default nextConfig;
