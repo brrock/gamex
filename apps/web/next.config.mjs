@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["ui", "api", "database", "clerk-auth-middleware"],
+  transpilePackages: ["ui", "database", "clerk-auth-middleware", "api"],
   output: "standalone",
   typescript: {
     ignoreBuildErrors: true,
