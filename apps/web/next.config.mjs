@@ -6,7 +6,7 @@ const nextConfig = {
 
   experimental: {
     // Existing package imports
-    optimizePackageImports: ['api'],
+    optimizePackageImports: ["api"],
     // Add modern optimizations
     serverActions: true,
     serverComponentsExternalPackages: [],
@@ -50,15 +50,15 @@ const nextConfig = {
       ...(config.optimization || {}),
       minimize: true,
       splitChunks: {
-        chunks: 'all',
+        chunks: "all",
         minSize: 20000,
         maxSize: 50000,
         minChunks: 1,
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
+            name: "vendors",
+            chunks: "all",
           },
         },
       },
@@ -69,13 +69,11 @@ const nextConfig = {
 
   // API configuration
   api: {
-    responseLimit: '1mb',
+    responseLimit: "1mb",
     bodyParser: {
-      sizeLimit: '1mb',
+      sizeLimit: "1mb",
     },
   },
-
-  // Add proper module imports
-  
+};
 
 export default nextConfig;
