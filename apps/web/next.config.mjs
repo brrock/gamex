@@ -16,11 +16,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // Enable SWC minification
-  swcMinify: true,
-
   // Webpack configuration
-  webpack: (config, {}) => {
+  webpack: (config, { isServer }) => {
     // Enhanced fallbacks
     config.resolve.fallback = {
       ...(config.resolve.fallback || {}),
@@ -33,7 +30,7 @@ const nextConfig = {
     // Optimized chunking configuration
     config.optimization = {
       ...(config.optimization || {}),
-      // minimize: true,
+      minimize: true,
       splitChunks: {
         chunks: "all",
         minSize: 20000,
@@ -48,6 +45,20 @@ const nextConfig = {
         },
       },
     };
+
+    // Alias to handle `self` issue
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      self: isServer ? "global" : "self", // Use global in Node.js and self in browsers
+    };
+
+    // Define environment-specific variables
+    const webpack = require("webpack");
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        "typeof self": JSON.stringify(isServer ? "undefined" : "object"),
+      })
+    );
 
     return config;
   },
