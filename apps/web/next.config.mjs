@@ -28,31 +28,6 @@ const nextConfig = {
       self: false,
     };
 
-    // Optimized chunking configuration
-    config.optimization = {
-      ...(config.optimization || {}),
-      minimize: true,
-      splitChunks: {
-        chunks: "all",
-        minSize: 20000,
-        maxSize: 50000,
-        minChunks: 1,
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all",
-          },
-        },
-      },
-    };
-
-    // Alias to handle `self` issue
-
-
-    // Define environment-specific variables
-   
-
     return config;
   },
 };
