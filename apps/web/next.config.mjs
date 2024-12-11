@@ -25,6 +25,7 @@ const nextConfig = {
       tls: false,
       net: false,
       crypto: false,
+      self: false,
     };
 
     // Optimized chunking configuration
@@ -47,10 +48,7 @@ const nextConfig = {
     };
 
     // Alias to handle `self` issue
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
-      self: isServer ? "global" : "self", // Use global in Node.js and self in browsers
-    };
+
 
     // Define environment-specific variables
    
