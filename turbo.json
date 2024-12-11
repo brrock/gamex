@@ -11,6 +11,7 @@
   ],
   "tasks": {
     "build": {
+      "cache": false,
       "outputs": [".next/**", "!.next/cache/**"],
       "dependsOn": ["^build"],
       "env": [

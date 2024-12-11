@@ -7,15 +7,8 @@ const nextConfig = {
   experimental: {
     // Existing package imports
     optimizePackageImports: ["api"],
-    // Add modern optimizations
-    serverActions: true,
-    serverComponentsExternalPackages: [],
   },
 
-  // Existing output configuration
-  output: "standalone",
-
-  // Development configurations
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -23,17 +16,11 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // Enable compression
-  compress: true,
-
   // Enable SWC minification
   swcMinify: true,
 
   // Webpack configuration
-  webpack: (config, { }) => {
-    // Add Prisma plugin for server
-   
-
+  webpack: (config, {}) => {
     // Enhanced fallbacks
     config.resolve.fallback = {
       ...(config.resolve.fallback || {}),
@@ -63,14 +50,6 @@ const nextConfig = {
     };
 
     return config;
-  },
-
-  // API configuration
-  api: {
-    responseLimit: "1mb",
-    bodyParser: {
-      sizeLimit: "1mb",
-    },
   },
 };
 
