@@ -17,6 +17,7 @@ const nextConfig = {
   },
 
   // Enable SWC minification
+  swcMinify: true,
 
   // Webpack configuration
   webpack: (config, {}) => {
