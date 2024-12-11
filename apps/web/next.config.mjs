@@ -18,7 +18,7 @@ const nextConfig = {
 
   // Enable SWC minification
   swcMinify: true,
-
+  compress: true,
   // Webpack configuration
   webpack: (config, {}) => {
     // Enhanced fallbacks
