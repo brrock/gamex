@@ -18,7 +18,7 @@ const nextConfig = {
 
   // Enable SWC minification
   swcMinify: true,
-  compress: true,
+
   // Webpack configuration
   webpack: (config, {}) => {
     // Enhanced fallbacks
@@ -31,23 +31,23 @@ const nextConfig = {
     };
 
     // Optimized chunking configuration
-    // config.optimization = {
-    //   ...(config.optimization || {}),
-    //   minimize: true,
-    //   splitChunks: {
-    //     chunks: "all",
-    //     minSize: 20000,
-    //     maxSize: 50000,
-    //     minChunks: 1,
-    //     cacheGroups: {
-    //       vendor: {
-    //         test: /[\\/]node_modules[\\/]/,
-    //         name: "vendors",
-    //         chunks: "all",
-    //       },
-    //     },
-    //   },
-    // };
+    config.optimization = {
+      ...(config.optimization || {}),
+      minimize: true,
+      splitChunks: {
+        chunks: "all",
+        minSize: 20000,
+        maxSize: 50000,
+        minChunks: 1,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all",
+          },
+        },
+      },
+    };
 
     return config;
   },
