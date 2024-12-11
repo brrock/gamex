@@ -33,7 +33,7 @@ const nextConfig = {
     // Optimized chunking configuration
     config.optimization = {
       ...(config.optimization || {}),
-      minimize: true,
+      // minimize: true,
       splitChunks: {
         chunks: "all",
         minSize: 20000,
