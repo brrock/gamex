@@ -53,12 +53,7 @@ const nextConfig = {
     };
 
     // Define environment-specific variables
-    const webpack = require("webpack");
-    config.plugins.push(
-      new webpack.DefinePlugin({
-        "typeof self": JSON.stringify(isServer ? "undefined" : "object"),
-      })
-    );
+   
 
     return config;
   },
