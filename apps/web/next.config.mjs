@@ -24,7 +24,7 @@ const nextConfig = {
   },
 
   // Webpack configuration
-  webpack: (config, { isServer }) => {
+  webpack: (config, {  }) => {
     // Enhanced fallbacks
     config.resolve.fallback = {
       ...(config.resolve.fallback || {}),
@@ -36,13 +36,7 @@ const nextConfig = {
     };
 
     // Optimize for Edge Functions
-    if (!isServer) {
-      config.optimization.splitChunks.cacheGroups = {
-        ...config.optimization.splitChunks.cacheGroups,
-        default: false,
-        vendors: false,
-      };
-    }
+    
 
     return config;
   },
