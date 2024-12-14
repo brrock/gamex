@@ -1,5 +1,5 @@
 // packages/api/src/index.ts
-import { Hono } from "hono";
+import { Hono } from "hono/tiny";
 import { handle } from "hono/vercel";
 import { generateRoutes } from "./generate-routes";
 
