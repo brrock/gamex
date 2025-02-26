@@ -1,3 +1,4 @@
+// packages/api/tsup.config.ts
 import { defineConfig } from "tsup";
 import { execSync } from "child_process";
 
@@ -6,19 +7,17 @@ export default defineConfig({
   format: ["esm"],
   dts: true,
   clean: true,
-  sourcemap: false, // Disable sourcemaps for smaller size
-  target: "es2022", // Use modern JavaScript
-  minify: true, // Minify output for Edge Function
-  external: ["hono"], // Externalize large libraries
+  sourcemap: true,
+  target: "es2020",
+  external: ["hono"],
   esbuildOptions(options) {
-    options.bundle = true; // Bundle dependencies
+    options.bundle = true;
     options.define = {
       __dirname: "'/'",
       "process.env.NODE_ENV": '"production"',
     };
   },
   onSuccess: () => {
-
-      execSync("tsx src/build/generate-route.ts", { stdio: "inherit" });
+    return execSync("tsx src/build/generate-route.ts", { stdio: "inherit" });
   },
 });
